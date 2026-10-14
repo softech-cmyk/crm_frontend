@@ -1,7 +1,31 @@
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { API_BASE, apiFetch, resolveAssetUrl } from "../api.js";
+import ImportButton from "../components/ImportButton.jsx";
 import "./PurchaseOrder.css";
+
+const IMPORT_COLUMNS = [
+  { header: "Sr", field: "sr" },
+  { header: "Model", field: "model" },
+  { header: "Instrument Name", field: "instrumentName" },
+  { header: "PO/Quotation No.", field: "poQuotationNo" },
+  { header: "Purchase Order Date", field: "poDate", date: true },
+  { header: "To Be Supplied By Date", field: "toBeSuppliedByDate", date: true },
+  { header: "Installation Date", field: "installationDate", date: true },
+  { header: "Installed By", field: "installedBy" },
+  { header: "Fin. Year", field: "finYear" },
+  { header: "Institute", field: "institute" },
+  { header: "Contact Person", field: "contactPerson" },
+  { header: "Email Id", field: "emailId" },
+  { header: "Phone No", field: "phoneNo" },
+  { header: "Invoice No.", field: "invoiceNo" },
+  { header: "Invoice Date", field: "invoiceDate", date: true },
+  { header: "Basic", field: "basic" },
+  { header: "GST", field: "gst" },
+  { header: "Total", field: "total" },
+  { header: "Payment Received (Y/N)", field: "paymentReceived" },
+  { header: "Remarks", field: "remarks" },
+];
 
 const DOCUMENT_FIELDS = [
   { key: "installationCertificate", label: "Installation Certificate Upload" },
@@ -183,7 +207,10 @@ function PurchaseOrder() {
 
   return (
     <div className="purchase-order-page">
-      <h1 className="purchase-order-title">Purchase Order</h1>
+      <div className="page-title-row">
+        <h1 className="purchase-order-title">Purchase Order</h1>
+        <ImportButton columns={IMPORT_COLUMNS} endpoint="/api/purchase-orders/import" onImported={loadRecords} />
+      </div>
 
       <form className="purchase-order-form" onSubmit={handleSubmit}>
         <div className="form-field">

@@ -1,7 +1,34 @@
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { API_BASE, apiFetch } from "../api.js";
+import ImportButton from "../components/ImportButton.jsx";
 import "./TenderReference.css";
+
+const IMPORT_COLUMNS = [
+  { header: "Serial No.", field: "serialNo" },
+  { header: "Tender Number", field: "tenderNumber" },
+  { header: "Tender From", field: "tenderFrom" },
+  { header: "Product Name", field: "productName" },
+  { header: "EMD", field: "emd" },
+  { header: "EMD Received Back", field: "emdReceivedBack" },
+  { header: "Warranty", field: "warranty" },
+  { header: "PBG", field: "pbg" },
+  { header: "PBG Received Back", field: "pbgReceivedBack" },
+  { header: "Instrument Details", field: "instrumentDetails" },
+  { header: "Internal Tender ID", field: "internalTenderId" },
+  { header: "RA Enabled", field: "raEnabled" },
+  { header: "Award", field: "award" },
+  { header: "Supply Order No.", field: "supplyOrderNo" },
+  { header: "Order Date", field: "orderDate", date: true },
+  { header: "To Be Supplied By", field: "toBeSuppliedBy", date: true },
+  { header: "Installation Done", field: "installationDone" },
+  { header: "Installation Date", field: "installationDate", date: true },
+  { header: "Tentative Bid Value", field: "tentativeBidValue" },
+  { header: "Remarks", field: "remarks" },
+  { header: "Date", field: "date", date: true },
+  { header: "Due On", field: "dueOn", date: true },
+  { header: "Due Time", field: "dueTime" },
+];
 
 const HOURS = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, "0"));
 const MINUTES = Array.from({ length: 60 }, (_, i) => String(i).padStart(2, "0"));
@@ -168,7 +195,14 @@ function TenderReference() {
 
   return (
     <div className="tender-reference-page">
-      <h1 className="tender-reference-title">Tender Reference</h1>
+      <div className="page-title-row">
+        <h1 className="tender-reference-title">Tender Reference</h1>
+        <ImportButton
+          columns={IMPORT_COLUMNS}
+          endpoint="/api/tender-references/import"
+          onImported={loadTenderReferences}
+        />
+      </div>
 
       <form className="tender-reference-form" onSubmit={handleSubmit}>
         <div className="form-field">

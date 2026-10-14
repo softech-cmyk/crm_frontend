@@ -9,6 +9,12 @@
   margin-bottom: 20px;
 }
 
+.amc-support-list-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .amc-support-list-title {
   margin: 0;
   font-size: 20px;

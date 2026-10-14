@@ -1,0 +1,38 @@
+.import-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.import-button-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.import-button-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.import-button-error {
+  font-size: 13px;
+  color: #dc2626;
+}
+
+.import-button-success {
+  font-size: 13px;
+  color: #16a34a;
+}
+
+.page-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.page-title-row > h1 {
+  margin: 0;
+}

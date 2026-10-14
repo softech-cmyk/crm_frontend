@@ -2,7 +2,23 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
 import { API_BASE, apiFetch } from "../api.js";
+import ImportButton from "../components/ImportButton.jsx";
 import "./Quotations.css";
+
+const IMPORT_COLUMNS = [
+  { header: "Customer Name", field: "customerName" },
+  { header: "Institute Name", field: "instituteName" },
+  { header: "Ref No", field: "refNo" },
+  { header: "Date", field: "date", date: true },
+  { header: "Item Name", field: "itemName" },
+  { header: "Model", field: "model" },
+  { header: "Quantity", field: "quantity" },
+  { header: "Unit Price", field: "unitPrice" },
+  { header: "GST %", field: "gstPercent" },
+  { header: "Status", field: "status" },
+  { header: "Valid Until", field: "validUntil", date: true },
+  { header: "Remarks", field: "remarks" },
+];
 
 function Quotations() {
   const navigate = useNavigate();
@@ -10,7 +26,7 @@ function Quotations() {
   const [loadStatus, setLoadStatus] = useState("loading");
   const [deletingId, setDeletingId] = useState(null);
 
-  useEffect(() => {
+  const loadQuotations = () => {
     apiFetch(`${API_BASE}/api/quotations`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load quotations");
@@ -21,7 +37,9 @@ function Quotations() {
         setLoadStatus("ready");
       })
       .catch(() => setLoadStatus("error"));
-  }, []);
+  };
+
+  useEffect(loadQuotations, []);
 
   const handleDelete = async (quotation) => {
     const label = quotation.lead ? quotation.lead.name : quotation.refNo || "this quotation";
@@ -42,9 +60,12 @@ function Quotations() {
     <div className="quotations-page">
       <div className="quotations-header">
         <h1 className="quotations-title">Quotations</h1>
-        <button type="button" className="btn-primary" onClick={() => navigate("/sales/quotations/new")}>
-          New Quotation
-        </button>
+        <div className="quotations-header-actions">
+          <ImportButton columns={IMPORT_COLUMNS} endpoint="/api/quotations/import" onImported={loadQuotations} />
+          <button type="button" className="btn-primary" onClick={() => navigate("/sales/quotations/new")}>
+            New Quotation
+          </button>
+        </div>
       </div>
 
       {loadStatus === "ready" && quotations.length === 0 && (

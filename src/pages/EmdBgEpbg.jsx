@@ -1,7 +1,23 @@
 import { useEffect, useState } from "react";
 import { Pencil, Trash2 } from "lucide-react";
 import { API_BASE, apiFetch } from "../api.js";
+import ImportButton from "../components/ImportButton.jsx";
 import "./EmdBgEpbg.css";
+
+const IMPORT_COLUMNS = [
+  { header: "Name of Institute", field: "nameOfInstitute" },
+  { header: "Contact Details", field: "contactDetails" },
+  { header: "Tender / PO No.", field: "tenderPoNo" },
+  { header: "Item", field: "item" },
+  { header: "Bank", field: "bank" },
+  { header: "EMD / BG", field: "emdBg" },
+  { header: "Guarantee No./DD", field: "guaranteeNoDd" },
+  { header: "Date of Issue", field: "dateOfIssue", date: true },
+  { header: "Amount", field: "amount" },
+  { header: "Expiry Date", field: "expiryDate", date: true },
+  { header: "Remarks", field: "remarks" },
+  { header: "Status", field: "status" },
+];
 
 function EmdBgEpbg() {
   const [records, setRecords] = useState([]);
@@ -125,7 +141,10 @@ function EmdBgEpbg() {
 
   return (
     <div className="emd-bg-epbg-page">
-      <h1 className="emd-bg-epbg-title">EMD_BG_EPBG</h1>
+      <div className="page-title-row">
+        <h1 className="emd-bg-epbg-title">EMD_BG_EPBG</h1>
+        <ImportButton columns={IMPORT_COLUMNS} endpoint="/api/emd-bg-epbg/import" onImported={loadRecords} />
+      </div>
 
       <form className="emd-bg-epbg-form" onSubmit={handleSubmit}>
         <div className="form-field">

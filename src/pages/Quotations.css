@@ -9,6 +9,12 @@
   margin-bottom: 20px;
 }
 
+.quotations-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .quotations-title {
   margin: 0;
   font-size: 20px;
