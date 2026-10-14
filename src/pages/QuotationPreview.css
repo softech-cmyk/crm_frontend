@@ -1,0 +1,380 @@
+.quotation-preview-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.quotation-preview-status {
+  padding: 40px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.quotation-preview-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.quotation-preview-toolbar-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.quotation-preview-toolbar .btn-secondary,
+.quotation-preview-toolbar .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-secondary {
+  padding: 9px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+}
+
+.btn-primary {
+  padding: 9px 16px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-blue);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--color-blue-dark);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.doc-page {
+  position: relative;
+  background: #fff;
+  color: #111827;
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto 32px;
+  padding: 16mm 14mm;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.doc-page.stamp-edit-mode {
+  cursor: crosshair;
+}
+
+.btn-secondary.is-active {
+  border-color: var(--color-blue);
+  background: var(--color-blue);
+  color: #fff;
+}
+
+.stamp-edit-hint {
+  max-width: 900px;
+  margin: 0 auto 16px;
+  padding: 10px 14px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  color: #1d4ed8;
+  font-size: 13px;
+}
+
+.doc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  border-bottom: 3px solid #059669;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+}
+
+.doc-logo-img {
+  display: block;
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+.doc-brand-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #059669;
+}
+
+.doc-brand-suffix {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #374151;
+  margin-left: 6px;
+}
+
+.doc-brand-tagline {
+  font-size: 10.5px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.doc-brand-contact {
+  text-align: right;
+  font-size: 11px;
+  color: #374151;
+}
+
+.doc-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 14px;
+}
+
+.doc-recipient {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 12px;
+}
+
+.doc-subject {
+  margin-bottom: 14px;
+}
+
+.doc-ex-messers {
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.doc-body p {
+  margin: 0 0 12px;
+}
+
+.doc-signature {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.doc-signature-gap {
+  height: 48px;
+}
+
+.doc-signature-img {
+  max-height: 78px;
+  max-width: 100px;
+  object-fit: contain;
+  margin: 6px 0;
+}
+
+.doc-signature-img.is-placed {
+  margin: 0;
+  z-index: 5;
+}
+
+.doc-signature-img.is-editable {
+  cursor: grab;
+  outline: 2px dashed #2563eb;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.doc-signature-img.is-editable:active {
+  cursor: grabbing;
+}
+
+.doc-page-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 14px;
+  text-decoration: underline;
+}
+
+.doc-table-title {
+  font-weight: 700;
+  text-decoration: underline;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 4px;
+}
+
+.doc-table th,
+.doc-table td {
+  border: 1px solid #111827;
+  padding: 6px 8px;
+  vertical-align: top;
+  text-align: left;
+}
+
+.doc-table th {
+  background: #f3f4f6;
+  font-weight: 700;
+}
+
+.doc-table .col-part {
+  width: 12%;
+}
+
+.doc-table .col-qty {
+  width: 8%;
+  text-align: center;
+}
+
+.doc-table .col-price {
+  width: 18%;
+  text-align: right;
+}
+
+.doc-description-name {
+  font-weight: 700;
+  text-decoration: underline;
+  margin-bottom: 4px;
+}
+
+.doc-includes-note {
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.doc-description-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.doc-description-body ul {
+  margin: 2px 0;
+  padding-left: 18px;
+}
+
+.doc-item-image {
+  display: block;
+  max-width: 260px;
+  max-height: 200px;
+  object-fit: contain;
+  margin-top: 6px;
+}
+
+.doc-inclusions {
+  border: 1px solid #111827;
+  border-top: none;
+  margin-top: -1px;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.doc-inclusions ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+  columns: 2;
+}
+
+.doc-section-note {
+  font-size: 11.5px;
+  font-style: italic;
+  margin-top: 6px;
+}
+
+.doc-section-note-top {
+  border: 1px solid #111827;
+  border-top: none;
+  margin-top: -1px;
+  margin-bottom: 0;
+  padding: 6px 10px;
+}
+
+.doc-totals-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: -1px;
+}
+
+.doc-totals-table td {
+  border: 1px solid #111827;
+  border-top: none;
+  padding: 6px 8px;
+}
+
+.doc-totals-table td:first-child {
+  width: 82%;
+  text-align: right;
+  font-weight: 600;
+}
+
+.doc-totals-table td:last-child {
+  text-align: right;
+  font-weight: 700;
+}
+
+.doc-total-words {
+  border: 1px solid #111827;
+  border-top: none;
+  padding: 6px 8px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.doc-terms-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.doc-terms-table td {
+  border: 1px solid #111827;
+  padding: 6px 10px;
+  vertical-align: top;
+}
+
+.doc-terms-label {
+  width: 22%;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media print {
+  .quotation-preview-page {
+    max-width: none;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .doc-page {
+    box-shadow: none;
+    margin: 0;
+    page-break-after: always;
+  }
+
+  .doc-page-last {
+    page-break-after: auto;
+  }
+}

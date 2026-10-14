@@ -1,0 +1,328 @@
+.mail-marketing-page {
+  max-width: 720px;
+  text-align: left;
+}
+
+.mail-marketing-title {
+  margin: 0 0 20px;
+  font-size: 20px;
+  color: var(--text-main);
+}
+
+.mail-marketing-compose {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.mail-marketing-compose--dragging {
+  border-color: var(--color-blue);
+}
+
+.mail-marketing-dropzone-overlay {
+  position: absolute;
+  inset: 8px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: color-mix(in srgb, var(--color-blue) 8%, var(--bg-card));
+  border: 2px dashed var(--color-blue);
+  border-radius: 10px;
+  color: var(--color-blue);
+  font-size: 14px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.mail-marketing-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-color);
+  padding: 6px 0;
+}
+
+.mail-marketing-field label {
+  flex-shrink: 0;
+  width: 60px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.mail-marketing-field input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--text-main);
+  padding: 4px 0;
+  font-family: inherit;
+}
+
+.mail-marketing-ccbcc-toggle {
+  flex-shrink: 0;
+  border: none;
+  background: none;
+  color: var(--color-blue);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 2px;
+}
+
+.mail-marketing-ccbcc-toggle:hover {
+  text-decoration: underline;
+}
+
+.mail-marketing-message {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  outline: none;
+  font-family: inherit;
+  resize: vertical;
+  margin-top: 6px;
+}
+
+.mail-marketing-message:focus {
+  border-color: var(--color-blue);
+}
+
+.mail-marketing-attach,
+.mail-marketing-departments {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mail-marketing-import-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+}
+
+.mail-marketing-attach-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.mail-marketing-attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mail-marketing-attachment-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px 5px 10px;
+  border-radius: 999px;
+  background: var(--bg-page);
+  border: 1px solid var(--border-color);
+  font-size: 13px;
+  color: var(--text-main);
+}
+
+.mail-marketing-attachment-chip button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+}
+
+.mail-marketing-attachment-chip button:hover {
+  color: #dc2626;
+}
+
+.mail-marketing-catalogue-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.mail-marketing-catalogue-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  padding: 4px 4px 8px;
+  margin-bottom: 4px;
+}
+
+.mail-marketing-catalogue-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 140px;
+  color: var(--text-muted);
+}
+
+.mail-marketing-catalogue-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13.5px;
+  color: var(--text-main);
+  font-family: inherit;
+}
+
+.mail-marketing-upload-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-main);
+  background: var(--bg-page);
+  cursor: pointer;
+}
+
+.mail-marketing-upload-btn:hover {
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+}
+
+.mail-marketing-upload-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.mail-marketing-upload-status {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.mail-marketing-catalogue-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 4px;
+  font-size: 13.5px;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.mail-marketing-catalogue-option span:first-of-type {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mail-marketing-catalogue-company {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.mail-marketing-empty {
+  margin: 0;
+  padding: 4px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.mail-marketing-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+  margin-left: auto;
+}
+
+.mail-marketing-error {
+  font-size: 13px;
+  color: #dc2626;
+}
+
+.mail-marketing-success {
+  font-size: 13px;
+  color: #16a34a;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 100px;
+  justify-content: center;
+  padding: 9px 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-blue);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--color-blue-dark);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.btn-secondary {
+  padding: 9px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+}

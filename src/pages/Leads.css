@@ -1,0 +1,259 @@
+.leads-empty-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.leads-empty-subtitle {
+  margin: 8px 0 24px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.leads-empty-body {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 32px;
+}
+
+.leads-channel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.leads-channel-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 7px 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
+  cursor: pointer;
+  text-align: left;
+}
+
+.leads-channel-btn svg {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.leads-channel-btn:hover {
+  color: var(--color-blue-dark);
+}
+
+.leads-empty-divider {
+  position: relative;
+  align-self: stretch;
+  width: 1px;
+  background: var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leads-empty-or {
+  position: absolute;
+  background: var(--bg-card);
+  padding: 4px 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.leads-empty-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-primary {
+  min-width: 130px;
+  padding: 9px 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-blue);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--color-blue-dark);
+}
+
+.leads-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.leads-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 260px;
+  min-width: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-muted);
+}
+
+.leads-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+.leads-status-filter {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  font-size: 13.5px;
+  cursor: pointer;
+}
+
+.leads-count {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.leads-table {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.leads-table-scroll {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.leads-table-row {
+  display: grid;
+  grid-template-columns: 1.8fr 1.6fr 1fr 0.6fr 1fr 40px;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.leads-table-row:last-child {
+  border-bottom: none;
+}
+
+.leads-table-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  background: var(--bg-page);
+}
+
+.leads-table-name {
+  font-weight: 600;
+}
+
+.leads-table-row-interactive {
+  cursor: pointer;
+}
+
+.leads-table-row-interactive:hover {
+  background: var(--bg-page);
+}
+
+.leads-table-empty {
+  padding: 24px 16px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.leads-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.leads-badge-priority {
+  padding: 3px 8px;
+}
+
+.leads-badge-empty {
+  background: none;
+  color: var(--text-muted);
+  padding: 0;
+}
+
+.leads-status-select {
+  border: none;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.leads-status-select:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.leads-row-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.leads-delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-card);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.leads-delete-btn:hover {
+  background: #fee2e2;
+  border-color: #dc2626;
+  color: #dc2626;
+}
+
+.leads-delete-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}

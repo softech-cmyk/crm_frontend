@@ -1,0 +1,237 @@
+.purchase-order-page {
+  max-width: 760px;
+}
+
+.purchase-order-title {
+  margin: 0 0 20px;
+  font-size: 20px;
+  color: var(--text-main);
+}
+
+.purchase-order-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.purchase-order-form .form-field {
+  flex: 0 1 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.purchase-order-form label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.purchase-order-form input,
+.purchase-order-form select {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  outline: none;
+  font-family: inherit;
+}
+
+.purchase-order-form input:focus,
+.purchase-order-form select:focus {
+  border-color: var(--color-blue);
+}
+
+.purchase-order-documents {
+  flex: 1 1 100%;
+  border-top: 1px solid var(--border-color);
+  padding-top: 16px;
+}
+
+.purchase-order-documents-title {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.purchase-order-documents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.po-doc-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.po-doc-box-tile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 72px;
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-page);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.po-doc-box-tile.has-file {
+  border-style: solid;
+  border-color: var(--color-blue);
+}
+
+.po-doc-box-status {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 0 6px;
+}
+
+.po-doc-box-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.po-doc-box-label {
+  font-size: 11.5px;
+  color: var(--text-main);
+  line-height: 1.3;
+}
+
+.po-doc-box-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.po-doc-box-actions a {
+  color: var(--color-blue);
+}
+
+.po-doc-box-actions button {
+  border: none;
+  background: transparent;
+  color: #dc2626;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0;
+}
+
+.purchase-order-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.purchase-order-error {
+  font-size: 13px;
+  color: #dc2626;
+}
+
+.purchase-order-empty {
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.purchase-order-table {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.purchase-order-row {
+  display: grid;
+  grid-template-columns: repeat(20, 140px) 70px;
+  width: max-content;
+  min-width: 100%;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.purchase-order-row:last-child {
+  border-bottom: none;
+}
+
+.purchase-order-row.editing {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.purchase-order-head {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  background: var(--bg-page);
+}
+
+.purchase-order-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: sticky;
+  right: 0;
+  background: var(--bg-card);
+  margin: -10px 0;
+  padding: 10px 0;
+}
+
+.purchase-order-head .purchase-order-row-actions,
+.purchase-order-head > span:last-child {
+  position: sticky;
+  right: 0;
+  background: var(--bg-page);
+}
+
+.purchase-order-row.editing .purchase-order-row-actions {
+  background: #d1fae5;
+}
+
+.purchase-order-edit-btn,
+.purchase-order-delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.purchase-order-edit-btn:hover {
+  background: var(--bg-page);
+  color: var(--color-blue);
+}
+
+.purchase-order-delete-btn:hover {
+  background: var(--bg-page);
+  color: #dc2626;
+}

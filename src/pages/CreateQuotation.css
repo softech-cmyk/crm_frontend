@@ -1,0 +1,346 @@
+.create-quotation-page {
+  max-width: 680px;
+}
+
+.create-quotation-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: none;
+  padding: 0;
+  margin-bottom: 16px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.create-quotation-back:hover {
+  color: var(--text-main);
+}
+
+.create-quotation-title {
+  margin: 0 0 24px;
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.create-quotation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.create-quotation-form .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.create-quotation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.create-quotation-span-2 {
+  grid-column: 1 / -1;
+}
+
+.create-quotation-form label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.create-quotation-form select,
+.create-quotation-form input,
+.create-quotation-form textarea {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
+  background: var(--bg-card);
+  outline: none;
+  font-family: inherit;
+}
+
+.create-quotation-form select:focus,
+.create-quotation-form input:focus,
+.create-quotation-form textarea:focus {
+  border-color: var(--color-blue);
+}
+
+.phone-input {
+  display: flex;
+  gap: 8px;
+}
+
+.phone-input-code {
+  flex: 0 0 auto;
+  max-width: 110px;
+}
+
+.phone-input-number {
+  flex: 1;
+  min-width: 0;
+}
+
+.quotation-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-color);
+}
+
+.quotation-section-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.quotation-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quotation-item-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 14px;
+  background: var(--bg-page);
+}
+
+.quotation-item-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.quotation-item-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.quotation-item-field.name,
+.quotation-item-field.model {
+  flex: 1 1 160px;
+}
+
+.quotation-item-field.partno {
+  flex: 0 1 110px;
+}
+
+.quotation-item-field.qty {
+  flex: 0 1 70px;
+}
+
+.quotation-item-field.price {
+  flex: 0 1 120px;
+}
+
+.quotation-item-field.total {
+  flex: 0 1 110px;
+}
+
+.quotation-item-field.description {
+  width: 100%;
+}
+
+.quotation-item-field select,
+.quotation-item-field input,
+.quotation-item-field textarea {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 13.5px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  outline: none;
+  font-family: inherit;
+}
+
+.quotation-item-field select:focus,
+.quotation-item-field input:focus,
+.quotation-item-field textarea:focus {
+  border-color: var(--color-blue);
+}
+
+.quotation-item-inventory-hint {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-blue);
+}
+
+.quotation-item-field.total span {
+  display: block;
+  padding: 8px 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.quotation-item-included {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+  padding-bottom: 8px;
+}
+
+.quotation-item-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.quotation-item-remove:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.quotation-add-item {
+  align-self: flex-start;
+  border: none;
+  background: none;
+  color: var(--color-blue-dark);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.quotation-total-words {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: right;
+  margin-top: -6px;
+}
+
+.quotation-empty-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 0;
+}
+
+.quotation-total {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+}
+
+.quotation-gst-field {
+  max-width: 160px;
+}
+
+.quotation-bank-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-muted);
+  background: var(--bg-page);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.quotation-bank-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.create-quotation-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.create-quotation-error {
+  font-size: 13px;
+  color: #dc2626;
+}
+
+.btn-primary {
+  min-width: 130px;
+  padding: 9px 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-blue);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--color-blue-dark);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.btn-secondary {
+  padding: 9px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.7;
+  cursor: default;
+}

@@ -1,0 +1,201 @@
+.tender-reference-page {
+  max-width: 960px;
+}
+
+.tender-reference-title {
+  margin: 0 0 20px;
+  font-size: 20px;
+  color: var(--text-main);
+}
+
+.tender-reference-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.tender-reference-form .form-field {
+  flex: 0 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tender-reference-form label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.tender-reference-form input,
+.tender-reference-form select,
+.tender-reference-form textarea {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  outline: none;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.tender-reference-form input:focus,
+.tender-reference-form select:focus,
+.tender-reference-form textarea:focus {
+  border-color: var(--color-blue);
+}
+
+.tender-time-input {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tender-time-input select {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 9px 8px;
+  font-size: 14px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  outline: none;
+  font-family: inherit;
+}
+
+.tender-time-input select:focus {
+  border-color: var(--color-blue);
+}
+
+.tender-time-input span {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.tender-reference-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.tender-reference-error {
+  font-size: 13px;
+  color: #dc2626;
+}
+
+.tender-reference-empty {
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.tender-reference-table {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.tender-reference-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 60px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+  min-width: 3130px;
+}
+
+.tender-reference-row:last-child {
+  border-bottom: none;
+}
+
+.tender-reference-row.editing {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.tender-reference-head {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  background: var(--bg-page);
+}
+
+.tender-reference-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tender-reference-edit-btn,
+.tender-reference-delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.tender-reference-edit-btn:hover {
+  background: var(--bg-page);
+  color: var(--color-blue);
+}
+
+.tender-reference-delete-btn:hover {
+  background: var(--bg-page);
+  color: #dc2626;
+}
+
+.btn-primary {
+  min-width: 100px;
+  padding: 9px 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-blue);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--color-blue-dark);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.btn-secondary {
+  padding: 9px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+}

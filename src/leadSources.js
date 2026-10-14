@@ -1,0 +1,17 @@
+export const LEAD_SOURCES = [
+  "Social",
+  "Webform",
+  "Email",
+  "Message (SMS)",
+  "Phone",
+  "Website visitors",
+  "Google Sync",
+  "Facebook Ads Sync",
+  "LinkedIn Ads Sync",
+  "Conference",
+  "Sales Visit",
+  "Reference from Friend/colleague",
+  "Tour",
+  "Exporters India",
+  "Indiamart",
+];

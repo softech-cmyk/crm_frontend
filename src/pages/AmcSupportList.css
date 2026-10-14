@@ -1,0 +1,98 @@
+.amc-support-list-page {
+  max-width: 1100px;
+}
+
+.amc-support-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.amc-support-list-title {
+  margin: 0;
+  font-size: 20px;
+  color: var(--text-main);
+}
+
+.amc-support-list-table {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.amc-support-list-row {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr 2fr 1.2fr 1fr 60px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.amc-support-list-row:last-child {
+  border-bottom: none;
+}
+
+.amc-support-list-head {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  background: var(--bg-page);
+}
+
+.amc-support-list-row-interactive {
+  cursor: pointer;
+}
+
+.amc-support-list-row-interactive:hover {
+  background: var(--bg-page);
+}
+
+.amc-support-list-subject {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.amc-support-list-empty {
+  padding: 24px 16px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.amc-support-list-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.amc-support-list-edit-btn,
+.amc-support-list-delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.amc-support-list-edit-btn:hover {
+  background: var(--bg-card);
+  color: var(--color-blue);
+}
+
+.amc-support-list-delete-btn:hover {
+  background: var(--bg-card);
+  color: #dc2626;
+}

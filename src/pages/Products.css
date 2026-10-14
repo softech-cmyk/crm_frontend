@@ -1,0 +1,332 @@
+.products-page {
+  max-width: 1180px;
+}
+
+.products-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 20px;
+}
+
+.products-title {
+  margin: 0;
+  font-size: 20px;
+  color: var(--text-main);
+}
+
+.products-header .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.products-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.form-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.products-form .form-field input,
+.products-form .form-field textarea,
+.products-form .form-field select {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  outline: none;
+  font-family: inherit;
+}
+
+.products-form .form-field input:focus,
+.products-form .form-field textarea:focus,
+.products-form .form-field select:focus {
+  border-color: var(--color-blue);
+}
+
+.products-image-preview {
+  margin-top: 8px;
+  max-width: 220px;
+  max-height: 160px;
+  object-fit: contain;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.products-upload-status {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.products-form-description {
+  grid-column: 1 / -1;
+}
+
+.products-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.products-error {
+  font-size: 13px;
+  color: #dc2626;
+}
+
+.products-empty {
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.products-import {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+
+.products-import-title {
+  margin: 0 0 14px;
+  font-size: 15px;
+  color: var(--text-main);
+}
+
+.products-import-file-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.products-import-file-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.products-import-hint {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.products-import-success {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #16a34a;
+}
+
+.products-folders {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.products-folder {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.products-folder-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px 8px 16px;
+}
+
+.products-folder-header-toggle {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+  text-align: left;
+}
+
+.products-folder-header:hover {
+  background: var(--bg-page);
+}
+
+.products-folder-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.products-folder-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-page);
+  border-radius: 999px;
+  padding: 2px 10px;
+  flex-shrink: 0;
+}
+
+.products-folder-rename-btn {
+  flex-shrink: 0;
+  opacity: 0;
+}
+
+.products-folder-header:hover .products-folder-rename-btn {
+  opacity: 1;
+}
+
+.products-folder-rename-input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--color-blue);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+  background: var(--bg-card);
+  outline: none;
+  font-family: inherit;
+}
+
+.products-folder-rename-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.products-folder-rename-error {
+  padding: 0 16px 10px;
+}
+
+.products-table {
+  border-top: 1px solid var(--border-color);
+  overflow-x: auto;
+}
+
+.products-table-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 0.9fr 0.8fr 0.9fr 0.9fr 1.2fr 60px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+  min-width: 1200px;
+}
+
+.products-table-row:last-child {
+  border-bottom: none;
+}
+
+.products-table-row.editing {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.products-table-head {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  background: var(--bg-page);
+}
+
+.products-table-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.products-table-edit-btn,
+.products-table-delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.products-table-edit-btn:hover {
+  background: var(--bg-page);
+  color: var(--color-blue);
+}
+
+.products-table-delete-btn:hover {
+  background: var(--bg-page);
+  color: #dc2626;
+}
+
+.btn-primary {
+  min-width: 130px;
+  padding: 9px 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-blue);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--color-blue-dark);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.btn-secondary {
+  padding: 9px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+}

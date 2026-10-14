@@ -1,0 +1,175 @@
+.emd-bg-epbg-page {
+  max-width: 760px;
+}
+
+.emd-bg-epbg-title {
+  margin: 0 0 20px;
+  font-size: 20px;
+  color: var(--text-main);
+}
+
+.emd-bg-epbg-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.emd-bg-epbg-form .form-field {
+  flex: 0 1 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.emd-bg-epbg-form label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.emd-bg-epbg-form input,
+.emd-bg-epbg-form select,
+.emd-bg-epbg-form textarea {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  outline: none;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.emd-bg-epbg-form input:focus,
+.emd-bg-epbg-form select:focus,
+.emd-bg-epbg-form textarea:focus {
+  border-color: var(--color-blue);
+}
+
+.emd-bg-epbg-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.emd-bg-epbg-error {
+  font-size: 13px;
+  color: #dc2626;
+}
+
+.emd-bg-epbg-empty {
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.emd-bg-epbg-table {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.emd-bg-epbg-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 60px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+  min-width: 1680px;
+}
+
+.emd-bg-epbg-row:last-child {
+  border-bottom: none;
+}
+
+.emd-bg-epbg-row.editing {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.emd-bg-epbg-head {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  background: var(--bg-page);
+}
+
+.emd-bg-epbg-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.emd-bg-epbg-edit-btn,
+.emd-bg-epbg-delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.emd-bg-epbg-edit-btn:hover {
+  background: var(--bg-page);
+  color: var(--color-blue);
+}
+
+.emd-bg-epbg-delete-btn:hover {
+  background: var(--bg-page);
+  color: #dc2626;
+}
+
+.btn-primary {
+  min-width: 100px;
+  padding: 9px 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-blue);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--color-blue-dark);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.btn-secondary {
+  padding: 9px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+}

@@ -1,0 +1,11 @@
+.placeholder-title {
+  margin: 0;
+  font-size: 24px;
+  color: var(--text-main);
+}
+
+.placeholder-text {
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
