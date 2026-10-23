@@ -4,71 +4,8 @@ import * as XLSX from "xlsx";
 import { ArrowLeft, FileText, Trash2, Upload } from "lucide-react";
 import { API_BASE, apiFetch, resolveAssetUrl } from "../api.js";
 import { IMPORT_COLUMNS, parseWorkbookProducts } from "../utils/productImport.js";
+import { deriveCompanyName, filesFromDrop, uploadPdfFiles } from "../utils/pdfUpload.js";
 import "./ProductInformation.css";
-
-function deriveCompanyName(relativePath, fallback) {
-  const segments = (relativePath || "").split("/").filter(Boolean);
-  if (segments.length >= 2) return segments[segments.length - 2];
-  return fallback || "Unassigned";
-}
-
-function readEntry(entry, path = "") {
-  return new Promise((resolve) => {
-    if (entry.isFile) {
-      entry.file(
-        (file) => {
-          file.relativePath = path + file.name;
-          resolve([file]);
-        },
-        () => resolve([])
-      );
-    } else if (entry.isDirectory) {
-      const reader = entry.createReader();
-      const collected = [];
-      const readBatch = () => {
-        reader.readEntries((entries) => {
-          if (entries.length === 0) {
-            Promise.all(collected.map((child) => readEntry(child, `${path}${entry.name}/`))).then((nested) =>
-              resolve(nested.flat())
-            );
-          } else {
-            collected.push(...entries);
-            readBatch();
-          }
-        }, () => resolve([]));
-      };
-      readBatch();
-    } else {
-      resolve([]);
-    }
-  });
-}
-
-async function uploadPdfFiles(pdfFiles, getCompanyName, { setStatus, setProgress, setMessage }) {
-  setStatus("uploading");
-  setProgress({ done: 0, total: pdfFiles.length });
-  setMessage("");
-
-  let succeeded = 0;
-  let failed = 0;
-
-  for (const file of pdfFiles) {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("companyName", getCompanyName(file));
-      const res = await apiFetch(`${API_BASE}/api/catalogues`, { method: "POST", body: formData });
-      if (!res.ok) throw new Error();
-      succeeded += 1;
-    } catch (err) {
-      failed += 1;
-    }
-    setProgress((prev) => ({ ...prev, done: prev.done + 1 }));
-  }
-
-  setStatus("done");
-  return { succeeded, failed };
-}
 
 function ProductInformation() {
   const { id } = useParams();
@@ -141,7 +78,7 @@ function ProductInformation() {
       return;
     }
 
-    const { succeeded, failed } = await uploadPdfFiles(pdfFiles, getCompanyName, catalogueSetters);
+    const { succeeded, failed } = await uploadPdfFiles("/api/catalogues", pdfFiles, getCompanyName, catalogueSetters);
     const skippedNote = skippedCount > 0 ? ` Skipped ${skippedCount} non-PDF file(s).` : "";
     setCatalogueUploadMessage(
       `Uploaded ${succeeded} catalogue(s)${failed > 0 ? `, ${failed} failed` : ""}.${skippedNote}`
@@ -178,18 +115,7 @@ function ProductInformation() {
     e.stopPropagation();
     setIsDraggingOver(false);
 
-    const items = e.dataTransfer?.items;
-    let files = [];
-
-    if (items && items.length > 0 && items[0].webkitGetAsEntry) {
-      const entries = Array.from(items)
-        .map((item) => item.webkitGetAsEntry())
-        .filter(Boolean);
-      const nested = await Promise.all(entries.map((entry) => readEntry(entry)));
-      files = nested.flat();
-    } else {
-      files = Array.from(e.dataTransfer?.files || []);
-    }
+    const files = await filesFromDrop(e.dataTransfer);
 
     await finishCatalogueUpload(files, (file) => deriveCompanyName(file.relativePath, catalogueCompany || "Unassigned"));
   };

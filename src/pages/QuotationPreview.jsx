@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import html2pdf from "html2pdf.js";
-import { ArrowLeft, Printer, Download, Move, RotateCcw } from "lucide-react";
+import { ArrowLeft, Printer, Download, Move, RotateCcw, Share2 } from "lucide-react";
 import { API_BASE, apiFetch, resolveAssetUrl } from "../api.js";
 import { COMPANY_INFO, DEFAULT_ENCLOSURES } from "../companyInfo.js";
 import { amountInWords } from "../utils/numberToWords.js";
@@ -248,6 +248,8 @@ function QuotationPreview() {
   const [loadStatus, setLoadStatus] = useState("loading");
   const printRef = useRef(null);
   const [downloading, setDownloading] = useState(false);
+  const [sharing, setSharing] = useState(false);
+  const [shareError, setShareError] = useState("");
   const [stampMode, setStampMode] = useState(false);
   const [stampPositions, setStampPositions] = useState({});
 
@@ -288,23 +290,46 @@ function QuotationPreview() {
 
   const handlePrint = () => window.print();
 
+  const pdfFileName = () => `Quotation-${quotation.refNo || quotation._id}.pdf`;
+
+  const buildPdfWorker = () =>
+    html2pdf()
+      .set({
+        margin: 0,
+        filename: pdfFileName(),
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        pagebreak: { mode: ["css", "legacy"] },
+      })
+      .from(printRef.current);
+
   const handleDownload = async () => {
     if (!printRef.current) return;
     setDownloading(true);
     try {
-      await html2pdf()
-        .set({
-          margin: 0,
-          filename: `Quotation-${quotation.refNo || quotation._id}.pdf`,
-          image: { type: "jpeg", quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true },
-          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-          pagebreak: { mode: ["css", "legacy"] },
-        })
-        .from(printRef.current)
-        .save();
+      await buildPdfWorker().save();
     } finally {
       setDownloading(false);
+    }
+  };
+
+  const handleShare = async () => {
+    if (!printRef.current) return;
+    setSharing(true);
+    setShareError("");
+    try {
+      const blob = await buildPdfWorker().outputPdf("blob");
+      const formData = new FormData();
+      formData.append("file", new File([blob], pdfFileName(), { type: "application/pdf" }));
+      formData.append("companyName", quotation.instituteName || quotation.customerName || "Unassigned");
+      const res = await apiFetch(`${API_BASE}/api/quotation-files`, { method: "POST", body: formData });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.message || "Could not save the quotation PDF.");
+      navigate(`/sales/share-quotation?select=${data.file._id}`);
+    } catch (err) {
+      setShareError(err.message || "Could not save the quotation PDF.");
+      setSharing(false);
     }
   };
 
@@ -354,8 +379,14 @@ function QuotationPreview() {
             <Download size={16} />
             <span>{downloading ? "Preparing..." : "Download PDF"}</span>
           </button>
+          <button type="button" className="btn-primary" onClick={handleShare} disabled={sharing}>
+            <Share2 size={16} />
+            <span>{sharing ? "Saving..." : "Share Quotation"}</span>
+          </button>
         </div>
       </div>
+
+      {shareError && <div className="stamp-edit-hint no-print">{shareError}</div>}
 
       {stampMode && (
         <div className="stamp-edit-hint no-print">

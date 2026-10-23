@@ -37,6 +37,7 @@ const NAV_ITEMS = [
     children: [
       { label: "Leads", to: "/sales/leads", icon: Target },
       { label: "Quotations", to: "/sales/quotations/new", icon: FileText },
+      { label: "Share Quotation", to: "/sales/share-quotation", icon: Mail },
       { label: "Inventory", to: "/sales/products", icon: Package },
       { label: "Product Information", to: "/sales/product-information", icon: Info },
       { label: "Tender Reference", to: "/sales/tender-reference", icon: ClipboardList },
@@ -120,7 +121,7 @@ function Sidebar() {
   return (
     <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
       <div className="sidebar-brand">
-        <span className="sidebar-brand-mark">C</span>
+        <span className="sidebar-brand-mark">C</span>  
         <span className="sidebar-brand-name">CRM</span>
         <button
           type="button"

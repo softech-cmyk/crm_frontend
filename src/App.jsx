@@ -9,6 +9,7 @@ import Leads from "./pages/Leads.jsx";
 import CreateLead from "./pages/CreateLead.jsx";
 import LeadDetail from "./pages/LeadDetail.jsx";
 import Quotations from "./pages/Quotations.jsx";
+import ShareQuotation from "./pages/ShareQuotation.jsx";
 import CreateQuotation from "./pages/CreateQuotation.jsx";
 import QuotationPreview from "./pages/QuotationPreview.jsx";
 import Products from "./pages/Products.jsx";
@@ -45,6 +46,7 @@ function App() {
           <Route path="/sales/leads/:id/product-info" element={<ProductInformation />} />
           <Route path="/sales/quotations" element={<Quotations />} />
           <Route path="/sales/quotations/new" element={<CreateQuotation />} />
+          <Route path="/sales/share-quotation" element={<ShareQuotation />} />
           <Route path="/sales/quotations/:id/preview" element={<QuotationPreview />} />
           <Route path="/sales/products" element={<Products />} />
           <Route path="/sales/product-information" element={<ProductInformation />} />

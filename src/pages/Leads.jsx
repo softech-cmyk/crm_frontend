@@ -3,7 +3,29 @@ import { useNavigate } from "react-router-dom";
 import { ChevronRight, Search, Trash2 } from "lucide-react";
 import { API_BASE, apiFetch } from "../api.js";
 import { LEAD_SOURCES as CHANNELS } from "../leadSources.js";
+import ImportButton from "../components/ImportButton.jsx";
 import "./Leads.css";
+
+const IMPORT_COLUMNS = [
+  { header: "Designation", field: "designation" },
+  { header: "Name", field: "name" },
+  { header: "Email", field: "email" },
+  { header: "Date Generated", field: "dateGenerated", date: true },
+  { header: "Department", field: "department" },
+  { header: "Organisation", field: "organisation" },
+  { header: "Address", field: "address" },
+  { header: "Pin Code", field: "pinCode" },
+  { header: "DOB", field: "dob", date: true },
+  { header: "Anniversary", field: "anniversary", date: true },
+  { header: "Projects", field: "projects" },
+  { header: "Lead Sources", field: "leadSources" },
+  { header: "Next Follow Up Date", field: "nextFollowUpDate", date: true },
+  { header: "Next Follow Up Type", field: "nextFollowUpType" },
+  { header: "Status", field: "status" },
+  { header: "Lead Maturity", field: "leadMaturity" },
+  { header: "Priority", field: "priority" },
+  { header: "Remarks", field: "remarks" },
+];
 
 const STATUSES = ["New", "Contacted", "Qualified", "Converted", "Lost"];
 
@@ -135,9 +157,7 @@ function Leads() {
           <button type="button" className="btn-primary" onClick={() => navigate("/sales/leads/create")}>
             Create
           </button>
-          <button type="button" className="btn-primary">
-            Import
-          </button>
+          <ImportButton columns={IMPORT_COLUMNS} endpoint="/api/leads/import" onImported={loadLeads} />
         </div>
       </div>
 
