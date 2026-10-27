@@ -30,6 +30,7 @@ function ChipListInput({ values, onChange, placeholder }) {
             <li key={`${value}-${index}`} className="chip-list-item">
               <span>{value}</span>
               <button type="button" onClick={() => remove(index)} aria-label={`Remove ${value}`}>
+                
                 <X size={12} />
               </button>
             </li>

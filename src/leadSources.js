@@ -11,7 +11,6 @@ export const LEAD_SOURCES = [
   "Conference",
   "Sales Visit",
   "Reference from Friend/colleague",
-  "Tour",
   "Exporters India",
   "Indiamart",
 ];

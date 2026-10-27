@@ -12,7 +12,7 @@ import Quotations from "./pages/Quotations.jsx";
 import ShareQuotation from "./pages/ShareQuotation.jsx";
 import CreateQuotation from "./pages/CreateQuotation.jsx";
 import QuotationPreview from "./pages/QuotationPreview.jsx";
-import Products from "./pages/Products.jsx";
+import PriceList from "./pages/PriceList.jsx";
 import ProductInformation from "./pages/ProductInformation.jsx";
 import TenderReference from "./pages/TenderReference.jsx";
 import EmdBgEpbg from "./pages/EmdBgEpbg.jsx";
@@ -48,7 +48,7 @@ function App() {
           <Route path="/sales/quotations/new" element={<CreateQuotation />} />
           <Route path="/sales/share-quotation" element={<ShareQuotation />} />
           <Route path="/sales/quotations/:id/preview" element={<QuotationPreview />} />
-          <Route path="/sales/products" element={<Products />} />
+          <Route path="/sales/products" element={<PriceList />} />
           <Route path="/sales/product-information" element={<ProductInformation />} />
           <Route path="/sales/tender-reference" element={<TenderReference />} />
           <Route path="/sales/emd-bg-epbg" element={<EmdBgEpbg />} />

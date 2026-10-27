@@ -23,7 +23,7 @@ const EMPTY_FORM = {
 
 const EXPORT_COLUMNS = [{ header: "Company Name", field: "companyName" }, ...IMPORT_COLUMNS];
 
-function Products() {
+function PriceList() {
   const [products, setProducts] = useState([]);
   const [form, setForm] = useState(EMPTY_FORM);
   const [editingId, setEditingId] = useState(null);
@@ -172,7 +172,7 @@ function Products() {
   return (
     <div className="products-page">
       <div className="products-header">
-        <h1 className="products-title">Inventory</h1>
+        <h1 className="products-title">Price List</h1>
         <button
           type="button"
           className="btn-secondary"
@@ -421,4 +421,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default PriceList;

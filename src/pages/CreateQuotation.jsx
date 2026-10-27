@@ -321,7 +321,7 @@ function CreateQuotation() {
         <div key={index} className="quotation-item-card">
           <div className="quotation-item-row">
             <div className="quotation-item-field name">
-              <label>Product (type a name, or pick a suggestion from inventory)</label>
+              <label>Product (type a name, or pick a suggestion from price list)</label>
               <input
                 list="inventory-product-names"
                 value={item.name}
@@ -331,7 +331,7 @@ function CreateQuotation() {
               />
               {matchedProduct && (
                 <span className="quotation-item-inventory-hint">
-                  From inventory: {matchedProduct.companyName}
+                  From price list:{matchedProduct.companyName}
                   {matchedProduct.make ? ` – ${matchedProduct.make}` : ""}
                 </span>
               )}

@@ -38,7 +38,7 @@ const NAV_ITEMS = [
       { label: "Leads", to: "/sales/leads", icon: Target },
       { label: "Quotations", to: "/sales/quotations/new", icon: FileText },
       { label: "Share Quotation", to: "/sales/share-quotation", icon: Mail },
-      { label: "Inventory", to: "/sales/products", icon: Package },
+      { label: "Price List", to: "/sales/products", icon: Package },
       { label: "Product Information", to: "/sales/product-information", icon: Info },
       { label: "Tender Reference", to: "/sales/tender-reference", icon: ClipboardList },
       { label: "EMD_BG_EPBG", to: "/sales/emd-bg-epbg", icon: ShieldCheck },
