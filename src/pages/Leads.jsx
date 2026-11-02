@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronRight, Search, Trash2 } from "lucide-react";
 import { API_BASE, apiFetch } from "../api.js";
 import { LEAD_SOURCES as CHANNELS } from "../leadSources.js";
+import { MATURITY_MONTHS, maturityLabel } from "../leadMaturity.js";
 import ImportButton from "../components/ImportButton.jsx";
 import "./Leads.css";
 
@@ -26,6 +27,8 @@ const IMPORT_COLUMNS = [
   { header: "Priority", field: "priority" },
   { header: "Remarks", field: "remarks" },
 ];
+
+const MATURITIES = MATURITY_MONTHS;
 
 const STATUSES = ["New", "Contacted", "Qualified", "Converted", "Lost"];
 
@@ -91,6 +94,17 @@ function Leads() {
         .some((field) => field.toLowerCase().includes(query));
     });
   }, [leads, search, statusFilter]);
+
+  const groupedLeads = useMemo(() => {
+    const groups = [...MATURITIES, null].map((m) => ({
+      key: m ?? "none",
+      label: m ? maturityLabel(m) : "No maturity set",
+      leads: filteredLeads.filter((l) =>
+        m ? l.leadMaturity === m : !MATURITIES.includes(l.leadMaturity)
+      ),
+    }));
+    return groups.filter((g) => g.leads.length > 0);
+  }, [filteredLeads]);
 
   const handleStatusChange = async (e, lead, newStatus) => {
     e.stopPropagation();
@@ -204,7 +218,12 @@ function Leads() {
             {leads.length === 0 ? "No leads yet." : "No leads match your search."}
           </div>
         )}
-        {filteredLeads.map((lead) => (
+        {groupedLeads.map((group) => (
+          <Fragment key={group.key}>
+          <div className="leads-group-header">
+            {group.label} <span className="leads-group-count">({group.leads.length})</span>
+          </div>
+          {group.leads.map((lead) => (
           <div
             key={lead._id}
             className="leads-table-row leads-table-row-interactive"
@@ -247,6 +266,8 @@ function Leads() {
               </button>
             </span>
           </div>
+          ))}
+          </Fragment>
         ))}
       </div>
     </div>

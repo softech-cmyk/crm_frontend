@@ -199,3 +199,27 @@
   background: var(--bg-page);
   color: #dc2626;
 }
+
+.support-year-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--text-main);
+}
+
+.support-year-header {
+  padding: 10px 16px;
+  background: var(--bg-page);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  position: sticky;
+  left: 0;
+}
+
+.support-year-count {
+  font-weight: 400;
+  color: var(--text-muted);
+}

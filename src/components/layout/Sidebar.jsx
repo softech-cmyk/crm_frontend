@@ -53,6 +53,7 @@ const NAV_ITEMS = [
       { label: "Mail Marketing", to: "/contacts/mail-marketing", icon: Mail },
     ],
   },
+  { label: "User List", to: "/users", icon: Users },
   { label: "Tasks", to: "/tasks", icon: CheckSquare },
   { label: "Reports", to: "/reports", icon: BarChart2 },
   {

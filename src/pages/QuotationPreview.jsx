@@ -288,6 +288,8 @@ function QuotationPreview() {
     return quotation.customerName.trim().split(/\s+/)[0];
   }, [quotation]);
 
+  const greeting = { Male: "Sir", Female: "Madam" }[quotation?.recipientGender] || "";
+
   const handlePrint = () => window.print();
 
   const pdfFileName = () => `Quotation-${quotation.refNo || quotation._id}.pdf`;
@@ -409,7 +411,11 @@ function QuotationPreview() {
             Sub: Quotation for <strong>{subjectLine}</strong>
           </div>
           <div className="doc-body">
-            <p>Dear {quotation.recipientDesignation} {salutationName},</p>
+            <p>
+              {greeting
+                ? `Dear ${greeting},`
+                : `Dear ${quotation.recipientDesignation} ${salutationName},`}
+            </p>
             {quotation.coverLetterBody ? (
               quotation.coverLetterBody.split("\n").map((line, i) => (line.trim() ? <p key={i}>{line}</p> : null))
             ) : (

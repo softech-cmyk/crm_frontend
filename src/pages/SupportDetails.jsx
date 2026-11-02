@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import * as XLSX from "xlsx";
 import { Trash2, Upload } from "lucide-react";
 import { API_BASE, apiFetch } from "../api.js";
@@ -47,6 +47,11 @@ function getTimeTaken(supportEntry) {
   return resolvedDate ? label : `${label} (ongoing)`;
 }
 
+function getTicketYear(supportEntry) {
+  const match = /^(\d{4})/.exec(normalizeDate(supportEntry.ticketDate));
+  return match ? match[1] : "";
+}
+
 function SupportDetails() {
   const [supportEntries, setSupportEntries] = useState([]);
   const [serialNo, setSerialNo] = useState("");
@@ -70,6 +75,7 @@ function SupportDetails() {
   const [importStatus, setImportStatus] = useState("idle");
   const [importMessage, setImportMessage] = useState("");
   const [updatingStatusId, setUpdatingStatusId] = useState(null);
+  const [yearFilter, setYearFilter] = useState("All");
 
   const loadSupportEntries = () => {
     apiFetch(`${API_BASE}/api/support`)
@@ -82,6 +88,21 @@ function SupportDetails() {
   };
 
   useEffect(loadSupportEntries, []);
+
+  const yearGroups = useMemo(() => {
+    const byYear = new Map();
+    supportEntries.forEach((entry) => {
+      const year = getTicketYear(entry);
+      if (!byYear.has(year)) byYear.set(year, []);
+      byYear.get(year).push(entry);
+    });
+    return [...byYear.entries()]
+      .sort(([a], [b]) => (a === "" ? 1 : b === "" ? -1 : b.localeCompare(a)))
+      .map(([year, entries]) => ({ year, label: year || "No ticket date", entries }));
+  }, [supportEntries]);
+
+  const visibleGroups =
+    yearFilter === "All" ? yearGroups : yearGroups.filter((group) => group.year === yearFilter);
 
   const handleCancelEdit = () => {
     setEditingId(null);
@@ -424,6 +445,24 @@ function SupportDetails() {
       {supportEntries.length === 0 && <p className="support-empty">No support entries yet.</p>}
 
       {supportEntries.length > 0 && (
+        <div className="support-year-filter">
+          <label htmlFor="supportYearFilter">Year</label>
+          <select
+            id="supportYearFilter"
+            value={yearFilter}
+            onChange={(e) => setYearFilter(e.target.value)}
+          >
+            <option value="All">All years</option>
+            {yearGroups.map((group) => (
+              <option key={group.year} value={group.year}>
+                {group.label} ({group.entries.length})
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      {supportEntries.length > 0 && (
         <div className="support-table">
           <div className="support-row support-head">
             <span>Sr No.</span>
@@ -445,7 +484,12 @@ function SupportDetails() {
             <span>Time Taken</span>
             <span></span>
           </div>
-          {supportEntries.map((supportEntry) => (
+          {visibleGroups.map((group) => (
+            <Fragment key={group.year || "none"}>
+              <div className="support-year-header">
+                {group.label} <span className="support-year-count">({group.entries.length})</span>
+              </div>
+              {group.entries.map((supportEntry) => (
             <div
               key={supportEntry._id}
               className={`support-row ${editingId === supportEntry._id ? "editing" : ""}`}
@@ -496,6 +540,8 @@ function SupportDetails() {
                 </button>
               </span>
             </div>
+              ))}
+            </Fragment>
           ))}
         </div>
       )}

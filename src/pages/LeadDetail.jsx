@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { ArrowLeft, FileText, Package, Trash2 } from "lucide-react";
 import { API_BASE, apiFetch } from "../api.js";
+import { maturityLabel } from "../leadMaturity.js";
 import "./LeadDetail.css";
 
 const ACTION_LINKS = {
@@ -112,7 +113,7 @@ function LeadDetail() {
         </div>
         <div className="lead-detail-field">
           <span className="lead-detail-label">Lead Maturity</span>
-          <span>{lead.leadMaturity != null ? `${lead.leadMaturity}%` : "-"}</span>
+          <span>{maturityLabel(lead.leadMaturity)}</span>
         </div>
       </div>
 
@@ -145,6 +146,19 @@ function LeadDetail() {
           );
         })}
       </div>
+
+      {(lead.reports || []).length > 0 && (
+        <>
+          <h2 className="lead-detail-section-title">Reports</h2>
+          <ul className="lead-detail-remarks">
+            {lead.reports.map((report, index) => (
+              <li key={report._id || index}>
+                {report.date || "-"} — {report.text || "-"}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
 
       {lead.remarks && (
         <>

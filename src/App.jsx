@@ -13,6 +13,7 @@ import ShareQuotation from "./pages/ShareQuotation.jsx";
 import CreateQuotation from "./pages/CreateQuotation.jsx";
 import QuotationPreview from "./pages/QuotationPreview.jsx";
 import PriceList from "./pages/PriceList.jsx";
+import UserList from "./pages/UserList.jsx";
 import ProductInformation from "./pages/ProductInformation.jsx";
 import TenderReference from "./pages/TenderReference.jsx";
 import EmdBgEpbg from "./pages/EmdBgEpbg.jsx";
@@ -55,7 +56,8 @@ function App() {
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/contacts/list" element={<ContactsList />} />
           <Route path="/contacts/mail-marketing" element={<MailMarketing />} />
-          <Route path="/tasks" element={<Placeholder title="Tasks" />} />
+          <Route path="/users" element={<UserList />} />
+          <Route path="/tasks"element={<Placeholder title="Tasks" />} />
           <Route path="/reports" element={<Placeholder title="Reports" />} />
           <Route path="/support/dashboard" element={<SupportDashboard />} />
           <Route path="/support/details" element={<SupportDetails />} />

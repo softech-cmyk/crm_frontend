@@ -1,7 +1,8 @@
-import { useState } from "react";
+ import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ArrowLeft, Pencil, X } from "lucide-react";
+import { ArrowLeft, Pencil, Plus, X } from "lucide-react";
 import { API_BASE, apiFetch } from "../api.js";
+import { MATURITY_MONTHS, maturityLabel } from "../leadMaturity.js";
 import { LEAD_SOURCES } from "../leadSources.js";
 import "./CreateLead.css";
 
@@ -32,6 +33,7 @@ function CreateLead() {
   const [pinCode, setPinCode] = useState("");
   const [dob, setDob] = useState("");
   const [anniversary, setAnniversary] = useState("");
+  const [reports, setReports] = useState([]);
   const [projectInput, setProjectInput] = useState("");
   const [projects, setProjects] = useState([]);
   const [editingProjectIndex, setEditingProjectIndex] = useState(null);
@@ -66,6 +68,20 @@ function CreateLead() {
       ...prev,
       [action]: { status: "Pending", assignedTo: "", ...prev[action], [field]: value },
     }));
+  };
+
+  const addReport = () => {
+    setReports((prev) => [...prev, { date: new Date().toISOString().slice(0, 10), text: "" }]);
+  };
+
+  const updateReport = (index, field, value) => {
+    setReports((prev) =>
+      prev.map((report, i) => (i === index ? { ...report, [field]: value } : report))
+    );
+  };
+
+  const removeReport = (index) => {
+    setReports((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleAddProject = (e) => {
@@ -115,6 +131,7 @@ function CreateLead() {
           pinCode,
           dob,
           anniversary,
+          reports: reports.filter((report) => report.text.trim() || report.date),
           projects,
           leadSources,
           leadSourceDetails,
@@ -280,6 +297,35 @@ function CreateLead() {
         </div>
 
         <div className="form-field create-lead-span-2">
+          <label>Reports</label>
+          {reports.map((report, index) => (
+            <div key={index} className="follow-up-group">
+              <input
+                type="date"
+                value={report.date}
+                onChange={(e) => updateReport(index, "date", e.target.value)}
+              />
+              <input
+                value={report.text}
+                onChange={(e) => updateReport(index, "text", e.target.value)}
+                placeholder="Report"
+              />
+              <button
+                type="button"
+                className="project-chip-btn"
+                onClick={() => removeReport(index)}
+                aria-label="Remove report"
+              >
+                <X size={14} />
+              </button>
+            </div>
+          ))}
+          <button type="button" className="toggle-btn" onClick={addReport}>
+            <Plus size={14} /> Add report
+          </button>
+        </div>
+
+        <div className="form-field create-lead-span-2">
           <label htmlFor="projectsCompleted">Projects Completed</label>
           <input
             id="projectsCompleted"
@@ -424,20 +470,20 @@ function CreateLead() {
         </div>
 
         <div className="form-field">
-          <label htmlFor="leadMaturity">Percentage of Lead Maturity</label>
-          <div className="maturity-input-group">
-            <input
-              id="leadMaturity"
-              name="leadMaturity"
-              type="number"
-              min="0"
-              max="100"
-              value={leadMaturity}
-              onChange={(e) => setLeadMaturity(e.target.value)}
-              placeholder="0"
-            />
-            <span className="maturity-suffix">%</span>
-          </div>
+          <label htmlFor="leadMaturity">Lead Maturity</label>
+          <select
+            id="leadMaturity"
+            name="leadMaturity"
+            value={leadMaturity}
+            onChange={(e) => setLeadMaturity(e.target.value)}
+          >
+            <option value="">Select maturity</option>
+            {MATURITY_MONTHS.map((m) => (
+              <option key={m} value={m}>
+                {maturityLabel(m)}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="form-field">

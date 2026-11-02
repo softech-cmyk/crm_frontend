@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { Check, ChevronDown } from "lucide-react";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -34,6 +35,11 @@ function monthLabel(key) {
   return new Date(year, month - 1, 1).toLocaleString("en-US", { month: "short", year: "2-digit" });
 }
 
+function ticketYear(entry) {
+  const match = /^(\d{4})/.exec(normalizeDate(entry.ticketDate));
+  return match ? match[1] : "";
+}
+
 function ChartTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null;
   const value = payload[0].value;
@@ -48,7 +54,19 @@ function ChartTooltip({ active, payload, label }) {
 }
 
 function SupportDashboard() {
-  const [supportEntries, setSupportEntries] = useState([]);
+  const [allEntries, setAllEntries] = useState([]);
+  const [yearFilter, setYearFilter] = useState("All");
+  const [yearMenuOpen, setYearMenuOpen] = useState(false);
+  const yearMenuRef = useRef(null);
+
+  useEffect(() => {
+    if (!yearMenuOpen) return undefined;
+    const handleClick = (e) => {
+      if (!yearMenuRef.current?.contains(e.target)) setYearMenuOpen(false);
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [yearMenuOpen]);
 
   useEffect(() => {
     apiFetch(`${API_BASE}/api/support`)
@@ -56,9 +74,19 @@ function SupportDashboard() {
         if (!res.ok) throw new Error("Failed to load support entries");
         return res.json();
       })
-      .then((data) => setSupportEntries(data.supportEntries || []))
+      .then((data) => setAllEntries(data.supportEntries || []))
       .catch(() => {});
   }, []);
+
+  const years = useMemo(
+    () => [...new Set(allEntries.map(ticketYear).filter(Boolean))].sort().reverse(),
+    [allEntries]
+  );
+
+  const supportEntries = useMemo(
+    () => (yearFilter === "All" ? allEntries : allEntries.filter((e) => ticketYear(e) === yearFilter)),
+    [allEntries, yearFilter]
+  );
 
   const statusCounts = useMemo(() => {
     const counts = Object.fromEntries(STATUSES.map((s) => [s, 0]));
@@ -86,15 +114,15 @@ function SupportDashboard() {
   const monthlyTrend = useMemo(() => {
     const counts = new Map();
     supportEntries.forEach((entry) => {
-      const key = monthKey(entry.createdAt);
+      const key = monthKey(normalizeDate(entry.ticketDate));
       if (!key) return;
       counts.set(key, (counts.get(key) || 0) + 1);
     });
     return Array.from(counts.entries())
       .map(([key, count]) => ({ key, count, label: monthLabel(key) }))
       .sort((a, b) => (a.key < b.key ? -1 : 1))
-      .slice(-TREND_MONTHS);
-  }, [supportEntries]);
+      .slice(yearFilter === "All" ? -TREND_MONTHS : 0);
+  }, [supportEntries, yearFilter]);
 
   const recentEntries = supportEntries.slice(0, RECENT_LIMIT);
   const productBarHeight = Math.max(120, topProducts.length * 40);
@@ -103,9 +131,44 @@ function SupportDashboard() {
     <div className="support-dashboard-page">
       <div className="support-dashboard-header">
         <h1 className="support-dashboard-title">Support Dashboard</h1>
-        <Link to="/support/details" className="btn-primary">
-          Go to Details
-        </Link>
+        <div className="support-dashboard-actions">
+          <div className="support-year-menu" ref={yearMenuRef}>
+            <button
+              type="button"
+              className="support-year-btn"
+              aria-haspopup="listbox"
+              aria-expanded={yearMenuOpen}
+              onClick={() => setYearMenuOpen((open) => !open)}
+            >
+              {yearFilter === "All" ? "All years" : yearFilter}
+              <ChevronDown size={14} />
+            </button>
+            {yearMenuOpen && (
+              <ul className="support-year-list" role="listbox">
+                {["All", ...years].map((year) => (
+                  <li key={year}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={yearFilter === year}
+                      className={`support-year-option ${yearFilter === year ? "active" : ""}`}
+                      onClick={() => {
+                        setYearFilter(year);
+                        setYearMenuOpen(false);
+                      }}
+                    >
+                      {year === "All" ? "All years" : year}
+                      {yearFilter === year && <Check size={14} />}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <Link to="/support/details" className="btn-primary">
+            Go to Details
+          </Link>
+        </div>
       </div>
 
       <div className="support-dashboard-stats">

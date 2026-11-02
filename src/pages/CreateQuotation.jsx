@@ -64,6 +64,7 @@ function CreateQuotation() {
   const [recipientDesignation, setRecipientDesignation] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [salutationName, setSalutationName] = useState("");
+  const [recipientGender, setRecipientGender] = useState("");
   const [recipientPosition, setRecipientPosition] = useState("");
   const [department, setDepartment] = useState("");
   const [instituteName, setInstituteName] = useState("");
@@ -137,6 +138,7 @@ function CreateQuotation() {
         setRecipientDesignation(q.recipientDesignation || "");
         setCustomerName(q.customerName || "");
         setSalutationName(q.salutationName || "");
+        setRecipientGender(q.recipientGender || "");
         setRecipientPosition(q.recipientPosition || "");
         setDepartment(q.department || "");
         setInstituteName(q.instituteName || "");
@@ -247,6 +249,7 @@ function CreateQuotation() {
     recipientDesignation,
     customerName,
     salutationName,
+    recipientGender,
     recipientPosition,
     department,
     instituteName,
@@ -484,6 +487,19 @@ function CreateQuotation() {
               onChange={(e) => setCustomerName(e.target.value)}
               placeholder="Enter customer name"
             />
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="recipientGender">Gender</label>
+            <select
+              id="recipientGender"
+              value={recipientGender}
+              onChange={(e) => setRecipientGender(e.target.value)}
+            >
+              <option value="">Select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
           </div>
 
           <div className="form-field">
