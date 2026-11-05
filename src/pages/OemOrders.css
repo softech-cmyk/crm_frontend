@@ -1,0 +1,102 @@
+.oem-orders-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.oem-orders-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.oem-orders-card-title {
+  margin: 0 0 16px;
+  font-size: 16px;
+  color: var(--text-main);
+}
+
+.oem-orders-card-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.oem-orders-card .form-field {
+  flex: 0 1 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.oem-orders-card label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.oem-orders-card input {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  outline: none;
+  font-family: inherit;
+}
+
+.oem-orders-card input:focus {
+  border-color: var(--color-blue);
+}
+
+.oem-orders-title {
+  margin: 0 0 20px;
+  font-size: 20px;
+  color: var(--text-main);
+}
+
+.oem-orders-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.oem-orders-form .form-field {
+  flex: 0 1 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.oem-orders-form label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.oem-orders-form input,
+.oem-orders-form select {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  outline: none;
+  font-family: inherit;
+}
+
+.oem-orders-form input:focus,
+.oem-orders-form select:focus {
+  border-color: var(--color-blue);
+}

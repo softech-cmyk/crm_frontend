@@ -25,6 +25,7 @@ import SupportDetails from "./pages/SupportDetails.jsx";
 import AmcSupport from "./pages/AmcSupport.jsx";
 import AmcSupportList from "./pages/AmcSupportList.jsx";
 import PurchaseOrder from "./pages/PurchaseOrder.jsx";
+import OemOrders from "./pages/OemOrders.jsx";
 import Placeholder from "./pages/Placeholder.jsx";
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
           <Route path="/support/amc/:id" element={<AmcSupport />} />
           <Route path="/support/cmc" element={<Placeholder title="CMC" />} />
           <Route path="/operations/purchase-order" element={<PurchaseOrder />} />
+          <Route path="/operations/oem-orders" element={<OemOrders />} />
           <Route path="/settings" element={<Placeholder title="Settings" />} />
         </Route>
       </Route>

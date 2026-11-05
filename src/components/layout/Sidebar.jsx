@@ -71,6 +71,7 @@ const NAV_ITEMS = [
     icon: Wrench,
     children: [
       { label: "Purchase Order", to: "/operations/purchase-order", icon: ShoppingCart },
+      { label: "OEM Orders", to: "/operations/oem-orders", icon: Package },
     ],
   },
   { label: "Settings", to: "/settings", icon: Settings },
