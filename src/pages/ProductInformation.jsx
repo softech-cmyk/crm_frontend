@@ -282,65 +282,6 @@ function ProductInformation() {
         <div className="product-info-catalogues">
           <h2 className="product-info-catalogues-title">Catalogues</h2>
 
-          <div
-            className={`product-info-dropzone ${isDraggingOver ? "active" : ""}`}
-            onDragOver={handleDragOver}
-            onDragEnter={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-          >
-            <Upload size={20} className="product-info-dropzone-icon" />
-            <p className="product-info-dropzone-text">Drag and drop PDF files or folders here</p>
-            <p className="product-info-import-hint">
-              A dropped or chosen folder has every PDF inside its subfolders uploaded, filed under its immediate
-              parent folder name as the company/vendor. Loose PDFs use the company name below. Non-PDF files are
-              skipped.
-            </p>
-
-            <div className="product-info-dropzone-actions">
-              <input
-                type="text"
-                value={catalogueCompany}
-                onChange={(e) => setCatalogueCompany(e.target.value)}
-                placeholder="Company / vendor name (for loose PDFs)"
-                className="product-info-catalogue-company-input"
-              />
-              <label className="btn-secondary product-info-import-file-btn">
-                <Upload size={14} />
-                Choose PDF(s)
-                <input
-                  type="file"
-                  accept="application/pdf"
-                  multiple
-                  onChange={handleChoosePdfs}
-                  className="product-info-import-file-input"
-                />
-              </label>
-              <label className="btn-secondary product-info-import-file-btn">
-                <Upload size={14} />
-                Choose folder
-                <input
-                  type="file"
-                  webkitdirectory=""
-                  directory=""
-                  multiple
-                  onChange={handleChooseFolder}
-                  className="product-info-import-file-input"
-                />
-              </label>
-            </div>
-          </div>
-
-          {catalogueUploadStatus === "uploading" && (
-            <span className="product-info-import-status">
-              Uploading {catalogueUploadProgress.done}/{catalogueUploadProgress.total}...
-            </span>
-          )}
-          {catalogueUploadStatus === "error" && <span className="product-info-error">{catalogueUploadMessage}</span>}
-          {catalogueUploadStatus === "done" && (
-            <span className="product-info-import-success">{catalogueUploadMessage}</span>
-          )}
-
           {catalogues.length > 0 && (
             <div className="product-info-send">
               <div className="product-info-send-field">
@@ -421,6 +362,65 @@ function ProductInformation() {
               {sendStatus === "error" && <span className="product-info-error">{sendMessage}</span>}
               {sendStatus === "success" && <span className="product-info-import-success">{sendMessage}</span>}
             </div>
+          )}
+
+          <div
+            className={`product-info-dropzone ${isDraggingOver ? "active" : ""}`}
+            onDragOver={handleDragOver}
+            onDragEnter={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
+            <Upload size={20} className="product-info-dropzone-icon" />
+            <p className="product-info-dropzone-text">Drag and drop PDF files or folders here</p>
+            <p className="product-info-import-hint">
+              A dropped or chosen folder has every PDF inside its subfolders uploaded, filed under its immediate
+              parent folder name as the company/vendor. Loose PDFs use the company name below. Non-PDF files are
+              skipped.
+            </p>
+
+            <div className="product-info-dropzone-actions">
+              <input
+                type="text"
+                value={catalogueCompany}
+                onChange={(e) => setCatalogueCompany(e.target.value)}
+                placeholder="Company / vendor name (for loose PDFs)"
+                className="product-info-catalogue-company-input"
+              />
+              <label className="btn-secondary product-info-import-file-btn">
+                <Upload size={14} />
+                Choose PDF(s)
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  multiple
+                  onChange={handleChoosePdfs}
+                  className="product-info-import-file-input"
+                />
+              </label>
+              <label className="btn-secondary product-info-import-file-btn">
+                <Upload size={14} />
+                Choose folder
+                <input
+                  type="file"
+                  webkitdirectory=""
+                  directory=""
+                  multiple
+                  onChange={handleChooseFolder}
+                  className="product-info-import-file-input"
+                />
+              </label>
+            </div>
+          </div>
+
+          {catalogueUploadStatus === "uploading" && (
+            <span className="product-info-import-status">
+              Uploading {catalogueUploadProgress.done}/{catalogueUploadProgress.total}...
+            </span>
+          )}
+          {catalogueUploadStatus === "error" && <span className="product-info-error">{catalogueUploadMessage}</span>}
+          {catalogueUploadStatus === "done" && (
+            <span className="product-info-import-success">{catalogueUploadMessage}</span>
           )}
 
           {catalogues.length === 0 && <p className="product-info-empty">No catalogues uploaded yet.</p>}

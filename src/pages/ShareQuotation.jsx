@@ -156,62 +156,6 @@ function ShareQuotation() {
       <div className="product-info-catalogues">
         <h2 className="product-info-catalogues-title">Quotations</h2>
 
-        <div
-          className={`product-info-dropzone ${isDraggingOver ? "active" : ""}`}
-          onDragOver={handleDragOver}
-          onDragEnter={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-        >
-          <Upload size={20} className="product-info-dropzone-icon" />
-          <p className="product-info-dropzone-text">Drag and drop PDF files or folders here</p>
-          <p className="product-info-import-hint">
-            A dropped or chosen folder has every PDF inside its subfolders uploaded, filed under its immediate parent
-            folder name as the company/vendor. Loose PDFs use the company name below. Non-PDF files are skipped.
-          </p>
-
-          <div className="product-info-dropzone-actions">
-            <input
-              type="text"
-              value={company}
-              onChange={(e) => setCompany(e.target.value)}
-              placeholder="Company / vendor name (for loose PDFs)"
-              className="product-info-catalogue-company-input"
-            />
-            <label className="btn-secondary product-info-import-file-btn">
-              <Upload size={14} />
-              Choose PDF(s)
-              <input
-                type="file"
-                accept="application/pdf"
-                multiple
-                onChange={handleChoosePdfs}
-                className="product-info-import-file-input"
-              />
-            </label>
-            <label className="btn-secondary product-info-import-file-btn">
-              <Upload size={14} />
-              Choose folder
-              <input
-                type="file"
-                webkitdirectory=""
-                directory=""
-                multiple
-                onChange={handleChooseFolder}
-                className="product-info-import-file-input"
-              />
-            </label>
-          </div>
-        </div>
-
-        {uploadStatus === "uploading" && (
-          <span className="product-info-import-status">
-            Uploading {uploadProgress.done}/{uploadProgress.total}...
-          </span>
-        )}
-        {uploadStatus === "error" && <span className="product-info-error">{uploadMessage}</span>}
-        {uploadStatus === "done" && <span className="product-info-import-success">{uploadMessage}</span>}
-
         <div className="product-info-send">
           <div className="product-info-send-field">
             <label htmlFor="send-to">To</label>
@@ -282,6 +226,62 @@ function ShareQuotation() {
           {sendStatus === "error" && <span className="product-info-error">{sendMessage}</span>}
           {sendStatus === "success" && <span className="product-info-import-success">{sendMessage}</span>}
         </div>
+
+        <div
+          className={`product-info-dropzone ${isDraggingOver ? "active" : ""}`}
+          onDragOver={handleDragOver}
+          onDragEnter={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          <Upload size={20} className="product-info-dropzone-icon" />
+          <p className="product-info-dropzone-text">Drag and drop PDF files or folders here</p>
+          <p className="product-info-import-hint">
+            A dropped or chosen folder has every PDF inside its subfolders uploaded, filed under its immediate parent
+            folder name as the company/vendor. Loose PDFs use the company name below. Non-PDF files are skipped.
+          </p>
+
+          <div className="product-info-dropzone-actions">
+            <input
+              type="text"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              placeholder="Company / vendor name (for loose PDFs)"
+              className="product-info-catalogue-company-input"
+            />
+            <label className="btn-secondary product-info-import-file-btn">
+              <Upload size={14} />
+              Choose PDF(s)
+              <input
+                type="file"
+                accept="application/pdf"
+                multiple
+                onChange={handleChoosePdfs}
+                className="product-info-import-file-input"
+              />
+            </label>
+            <label className="btn-secondary product-info-import-file-btn">
+              <Upload size={14} />
+              Choose folder
+              <input
+                type="file"
+                webkitdirectory=""
+                directory=""
+                multiple
+                onChange={handleChooseFolder}
+                className="product-info-import-file-input"
+              />
+            </label>
+          </div>
+        </div>
+
+        {uploadStatus === "uploading" && (
+          <span className="product-info-import-status">
+            Uploading {uploadProgress.done}/{uploadProgress.total}...
+          </span>
+        )}
+        {uploadStatus === "error" && <span className="product-info-error">{uploadMessage}</span>}
+        {uploadStatus === "done" && <span className="product-info-import-success">{uploadMessage}</span>}
 
         {files.length === 0 && <p className="product-info-empty">No quotations uploaded yet.</p>}
         {files.length > 0 && (

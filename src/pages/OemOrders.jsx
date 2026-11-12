@@ -1,29 +1,8 @@
 import { useState } from "react";
+import { API_BASE, apiFetch } from "../api.js";
 import "./OemOrders.css";
 
-const SERVICE_FIELDS = [
-  { key: "srNo", label: "Sr no" },
-  { key: "instrument", label: "Instrument" },
-  { key: "poQuoteNo", label: "PO/Quote No." },
-  { key: "poDate", label: "PO Date", type: "date" },
-  { key: "finYear", label: "Fin. Year" },
-  { key: "installationDate", label: "Installation Date", type: "date" },
-  { key: "installedBy", label: "Installed By" },
-  { key: "institute", label: "Institute" },
-  { key: "contactPerson", label: "Contact Person" },
-  { key: "emailId", label: "Email id" },
-  { key: "phoneNo", label: "Phone no" },
-  { key: "invoiceNo", label: "Invoice No." },
-  { key: "invoiceDate", label: "Invoice Date", type: "date" },
-  { key: "basic", label: "Basic" },
-  { key: "gst", label: "GST" },
-  { key: "total", label: "Total" },
-  { key: "remarks", label: "Remarks (Item Details)" },
-  { key: "paymentReceived", label: "Payment Received (Y/N)" },
-];
-
 function OemOrders() {
-  const [service, setService] = useState({});
   const [serialNo, setSerialNo] = useState("");
   const [poNo, setPoNo] = useState("");
   const [date, setDate] = useState("");
@@ -35,6 +14,46 @@ function OemOrders() {
   const [endUser, setEndUser] = useState("");
   const [warrantyForCustomer, setWarrantyForCustomer] = useState("");
   const [status, setStatus] = useState("");
+  const [saveStatus, setSaveStatus] = useState("idle");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSaveStatus("saving");
+    try {
+      const res = await apiFetch(`${API_BASE}/api/oem-orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          serialNo,
+          poNo,
+          date,
+          manufacturers,
+          items,
+          totalCost,
+          instrumentSerialNo,
+          receivedDateAtNutech,
+          endUser,
+          warrantyForCustomer,
+          status,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to save record");
+      setSerialNo("");
+      setPoNo("");
+      setDate("");
+      setManufacturers("");
+      setItems("");
+      setTotalCost("");
+      setInstrumentSerialNo("");
+      setReceivedDateAtNutech("");
+      setEndUser("");
+      setWarrantyForCustomer("");
+      setStatus("");
+      setSaveStatus("saved");
+    } catch (err) {
+      setSaveStatus("error");
+    }
+  };
 
   return (
     <div className="oem-orders-page">
@@ -42,8 +61,7 @@ function OemOrders() {
         <h1 className="oem-orders-title">OEM Orders</h1>
       </div>
 
-      <div className="oem-orders-layout">
-      <form className="oem-orders-form" onSubmit={(e) => e.preventDefault()}>
+      <form className="oem-orders-form" onSubmit={handleSubmit}>
         <div className="form-field">
           <label htmlFor="oemOrderSerialNo">Serial No.</label>
           <input
@@ -143,26 +161,17 @@ function OemOrders() {
             placeholder="Enter Status"
           />
         </div>
-      </form>
 
-      <section className="oem-orders-card">
-        <h2 className="oem-orders-card-title">Service and Accessories</h2>
-        <div className="oem-orders-card-fields">
-          {SERVICE_FIELDS.map(({ key, label, type }) => (
-            <div className="form-field" key={key}>
-              <label htmlFor={`oemService-${key}`}>{label}</label>
-              <input
-                id={`oemService-${key}`}
-                type={type}
-                value={service[key] || ""}
-                onChange={(e) => setService((prev) => ({ ...prev, [key]: e.target.value }))}
-                placeholder={type === "date" ? undefined : `Enter ${label}`}
-              />
-            </div>
-          ))}
+        <div className="oem-orders-form-actions">
+          {saveStatus === "saved" && <span className="oem-orders-saved">Saved.</span>}
+          {saveStatus === "error" && (
+            <span className="oem-orders-error">Could not save record.</span>
+          )}
+          <button type="submit" className="btn-primary" disabled={saveStatus === "saving"}>
+            {saveStatus === "saving" ? "Saving..." : "Save"}
+          </button>
         </div>
-      </section>
-      </div>
+      </form>
     </div>
   );
 }

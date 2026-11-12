@@ -2,8 +2,31 @@
   padding: 24px;
 }
 
+.user-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.user-list-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-list-search {
+  padding: 8px 12px;
+  min-width: 220px;
+  border: 1px solid var(--border, rgba(128, 128, 128, 0.5));
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
 .user-list-title {
-  margin: 0 0 16px;
+  margin: 0;
   font-size: 22px;
 }
 
@@ -16,5 +39,9 @@
 .user-list-table td {
   padding: 10px 12px;
   text-align: left;
-  border-bottom: 1px solid var(--border, rgba(128, 128, 128, 0.25));
+  border: 1px solid var(--border, rgba(128, 128, 128, 0.5));
+}
+
+.user-list-table th {
+  font-weight: 700;
 }
