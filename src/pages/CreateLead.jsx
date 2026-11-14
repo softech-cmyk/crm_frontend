@@ -4,7 +4,30 @@ import { ArrowLeft, Pencil, Plus, X } from "lucide-react";
 import { API_BASE, apiFetch } from "../api.js";
 import { MATURITY_MONTHS, maturityLabel } from "../leadMaturity.js";
 import { LEAD_SOURCES } from "../leadSources.js";
+import SuggestInput from "../components/SuggestInput.jsx";
+import { searchContacts, searchLeads } from "../suggest.js";
 import "./CreateLead.css";
+
+// Suggestions come from earlier leads and from saved contacts, normalised to lead fields.
+async function searchPeople(q) {
+  const [leads, contacts] = await Promise.all([searchLeads(q), searchContacts(q)]);
+  const fromContacts = contacts.map((c) => ({
+    _id: `c-${c._id}`,
+    name: [c.firstName, c.lastName].filter(Boolean).join(" "),
+    email: c.emails && c.emails[0],
+    department: c.department,
+    organisation: c.company,
+    address: c.address,
+  }));
+  return [...leads, ...fromContacts].slice(0, 8);
+}
+
+function personLabel(p) {
+  return {
+    title: p.name || p.organisation,
+    subtitle: [p.organisation, p.email].filter(Boolean).join(" · "),
+  };
+}
 
 const ACTIONS = ["Budgetary Quotation", "Product Information"];
 
@@ -50,6 +73,18 @@ function CreateLead() {
   const [priority, setPriority] = useState("");
   const [remarks, setRemarks] = useState("");
   const [saveStatus, setSaveStatus] = useState("idle");
+
+  const fillFromPerson = (p) => {
+    if (p.designation) setDesignation(p.designation);
+    if (p.name) setName(p.name);
+    if (p.email) setEmail(p.email);
+    if (p.department) setDepartment(p.department);
+    if (p.organisation) setOrganisation(p.organisation);
+    if (p.address) setAddress(p.address);
+    if (p.pinCode) setPinCode(p.pinCode);
+    if (p.dob) setDob(p.dob);
+    if (p.anniversary) setAnniversary(p.anniversary);
+  };
 
   const toggleLeadSource = (source) => {
     setLeadSources((prev) =>
@@ -208,12 +243,15 @@ function CreateLead() {
               <option value="Dr." />
               <option value="Prof." />
             </datalist>
-            <input
+            <SuggestInput
               id="name"
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter full name"
+              fetchSuggestions={searchPeople}
+              getLabel={personLabel}
+              onPick={fillFromPerson}
             />
           </div>
         </div>
@@ -243,12 +281,15 @@ function CreateLead() {
 
         <div className="form-field">
           <label htmlFor="organisation">Instititute/University/Organisation Name</label>
-          <input
+          <SuggestInput
             id="organisation"
             name="organisation"
             value={organisation}
             onChange={(e) => setOrganisation(e.target.value)}
             placeholder="Enter Instititute/University/Organisation Name"
+            fetchSuggestions={searchPeople}
+            getLabel={personLabel}
+            onPick={fillFromPerson}
           />
         </div>
 

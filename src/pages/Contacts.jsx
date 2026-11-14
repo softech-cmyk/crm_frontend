@@ -3,6 +3,8 @@ import { useSearchParams } from "react-router-dom";
 import * as XLSX from "xlsx";
 import { Cake, Calendar, Phone, Plus, Tag, Upload, User, X } from "lucide-react";
 import { API_BASE, apiFetch } from "../api.js";
+import SuggestInput from "../components/SuggestInput.jsx";
+import { contactLabel, searchContacts } from "../suggest.js";
 import "./Contacts.css";
 
 const COUNTRY_CODES = [
@@ -399,12 +401,15 @@ function Contacts() {
       <form className="contacts-form" onSubmit={handleSubmit}>
         <div className="form-field">
           <label htmlFor="contactFirstName">First Name</label>
-          <input
+          <SuggestInput
             id="contactFirstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             placeholder="Enter first name"
             required
+            fetchSuggestions={searchContacts}
+            getLabel={contactLabel}
+            onPick={handleEdit}
           />
         </div>
         <div className="form-field">
@@ -418,11 +423,14 @@ function Contacts() {
         </div>
         <div className="form-field">
           <label htmlFor="contactCompany">Company</label>
-          <input
+          <SuggestInput
             id="contactCompany"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
             placeholder="Enter company"
+            fetchSuggestions={searchContacts}
+            getLabel={contactLabel}
+            onPick={handleEdit}
           />
         </div>
         <div className="form-field">
