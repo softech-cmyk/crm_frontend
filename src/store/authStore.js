@@ -16,11 +16,11 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  login: async (email, password) => {
+  login: async (email, password, role) => {
     const res = await apiFetch(`${API_BASE}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, role }),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || "Login failed");
@@ -28,11 +28,11 @@ export const useAuthStore = create((set) => ({
     return data.user;
   },
 
-  signup: async (name, email, password) => {
+  signup: async (name, email, password, role) => {
     const res = await apiFetch(`${API_BASE}/api/auth/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, email, password, role }),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || "Signup failed");

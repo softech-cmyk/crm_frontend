@@ -1,0 +1,61 @@
+.tasks-page {
+  padding: 24px;
+  max-width: 640px;
+}
+
+.tasks-title {
+  margin: 0 0 16px;
+  font-size: 24px;
+}
+
+.tasks-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tasks-form input {
+  flex: 1;
+  padding: 8px 10px;
+}
+
+.tasks-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tasks-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tasks-list label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.tasks-list li.done span {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.tasks-delete {
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+.tasks-delete:hover {
+  color: #ef4444;
+}
+
+.tasks-empty {
+  color: #6b7280;
+}

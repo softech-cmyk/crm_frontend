@@ -8,6 +8,7 @@ function Signup() {
   const navigate = useNavigate();
   const status = useAuthStore((state) => state.status);
   const signup = useAuthStore((state) => state.signup);
+  const [role, setRole] = useState("employee");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +21,7 @@ function Signup() {
     setError("");
     setSubmitting(true);
     try {
-      await signup(name, email, password);
+      await signup(name, email, password, role);
       navigate("/", { replace: true });
     } catch (err) {
       setError(err.message);
@@ -41,6 +42,21 @@ function Signup() {
         <h1 className="auth-title">Create an account</h1>
 
         {error && <div className="auth-error">{error}</div>}
+
+        <div className="auth-role" role="radiogroup" aria-label="Role">
+          {["manager", "employee"].map((r) => (
+            <button
+              key={r}
+              type="button"
+              role="radio"
+              aria-checked={role === r}
+              className={`auth-role-btn ${role === r ? "active" : ""}`}
+              onClick={() => setRole(r)}
+            >
+              {r === "manager" ? "Manager" : "Employee"}
+            </button>
+          ))}
+        </div>
 
         <div className="form-field">
           <label htmlFor="signup-name">Name</label>

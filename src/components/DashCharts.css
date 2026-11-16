@@ -1,0 +1,134 @@
+/* Green & white dashboard theme (shared by the employee and manager dashboards) */
+.emp-dash {
+  --dc-page: #f3faf6;
+  --dc-surface: #ffffff;
+  --dc-text: #0f2a1d;
+  --dc-text-muted: #5f7a6b;
+  --dc-grid: #dcebe2;
+  --dc-border: #d3e7db;
+  --dc-accent: #1f9d63;
+  --dc-accent-deep: #0b6b42;
+  --dc-accent-soft: #e4f5ec;
+  --dc-series-1: #1f9d63;
+  --dc-series-2: #e3a72f;
+  --dc-shadow: 0 1px 2px rgba(15, 80, 50, 0.06), 0 4px 14px rgba(15, 80, 50, 0.05);
+}
+
+[data-theme="dark"] .emp-dash {
+  --dc-page: #0e1d16;
+  --dc-surface: #15271e;
+  --dc-text: #e6f4ec;
+  --dc-text-muted: #94b3a2;
+  --dc-grid: #25402f;
+  --dc-border: #25402f;
+  --dc-accent: #3fcf8e;
+  --dc-accent-deep: #7ee2b3;
+  --dc-accent-soft: #1b3a2a;
+  --dc-series-1: #3fcf8e;
+  --dc-series-2: #e8b44a;
+  --dc-shadow: none;
+}
+
+.dc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.dc-card {
+  padding: 20px;
+  border: 1px solid var(--dc-border);
+  border-radius: 14px;
+  background: var(--dc-surface);
+  color: var(--dc-text);
+  box-shadow: var(--dc-shadow);
+  min-width: 0;
+}
+
+.dc-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.dc-card-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dc-accent-deep);
+}
+
+.dc-card-sub {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--dc-text-muted);
+}
+
+.dc-toggle {
+  border: 1px solid var(--dc-border);
+  border-radius: 999px;
+  background: var(--dc-accent-soft);
+  color: var(--dc-accent-deep);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 12px;
+  cursor: pointer;
+}
+
+.dc-toggle:hover {
+  border-color: var(--dc-accent);
+}
+
+.dc-empty {
+  margin: 0;
+  font-size: 14px;
+  color: var(--dc-text-muted);
+}
+
+.dc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.dc-table th,
+.dc-table td {
+  padding: 7px 4px;
+  text-align: left;
+  border-bottom: 1px solid var(--dc-grid);
+}
+
+.dc-table th {
+  color: var(--dc-text-muted);
+  font-weight: 500;
+}
+
+/* Hero stat with a progress bar */
+.dc-rate-value {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--dc-accent-deep);
+}
+
+.dc-rate-sub {
+  margin: 4px 0 16px;
+  font-size: 13px;
+  color: var(--dc-text-muted);
+}
+
+.dc-rate-track {
+  height: 10px;
+  border-radius: 5px;
+  background: var(--dc-accent-soft);
+  overflow: hidden;
+}
+
+.dc-rate-fill {
+  height: 100%;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #52c68f, var(--dc-accent));
+}

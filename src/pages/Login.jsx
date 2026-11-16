@@ -8,6 +8,7 @@ function Login() {
   const navigate = useNavigate();
   const status = useAuthStore((state) => state.status);
   const login = useAuthStore((state) => state.login);
+  const [role, setRole] = useState("employee");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +20,7 @@ function Login() {
     setError("");
     setSubmitting(true);
     try {
-      await login(email, password);
+      await login(email, password, role);
       navigate("/", { replace: true });
     } catch (err) {
       setError(err.message);
@@ -40,6 +41,21 @@ function Login() {
         <h1 className="auth-title">Log in</h1>
 
         {error && <div className="auth-error">{error}</div>}
+
+        <div className="auth-role" role="radiogroup" aria-label="Role">
+          {["manager", "employee"].map((r) => (
+            <button
+              key={r}
+              type="button"
+              role="radio"
+              aria-checked={role === r}
+              className={`auth-role-btn ${role === r ? "active" : ""}`}
+              onClick={() => setRole(r)}
+            >
+              {r === "manager" ? "Manager" : "Employee"}
+            </button>
+          ))}
+        </div>
 
         <div className="form-field">
           <label htmlFor="login-email">Email</label>

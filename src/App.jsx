@@ -24,9 +24,13 @@ import SupportDashboard from "./pages/SupportDashboard.jsx";
 import SupportDetails from "./pages/SupportDetails.jsx";
 import AmcSupport from "./pages/AmcSupport.jsx";
 import AmcSupportList from "./pages/AmcSupportList.jsx";
+import CmcSupport from "./pages/CmcSupport.jsx";
+import CmcSupportList from "./pages/CmcSupportList.jsx";
 import PurchaseOrder from "./pages/PurchaseOrder.jsx";
 import OemOrders from "./pages/OemOrders.jsx";
 import Placeholder from "./pages/Placeholder.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import Tasks from "./pages/Tasks.jsx";
 
 function App() {
   const fetchMe = useAuthStore((state) => state.fetchMe);
@@ -41,7 +45,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route element={<ProtectedRoute />}>
         <Route element={<Layout />}>
-          <Route path="/" element={<Placeholder title="Dashboard" />} />
+          <Route path="/" element={<Dashboard />} />
           <Route path="/sales/leads" element={<Leads />} />
           <Route path="/sales/leads/create" element={<CreateLead />} />
           <Route path="/sales/leads/:id" element={<LeadDetail />} />
@@ -58,14 +62,16 @@ function App() {
           <Route path="/contacts/list" element={<ContactsList />} />
           <Route path="/contacts/mail-marketing" element={<MailMarketing />} />
           <Route path="/users" element={<UserList />} />
-          <Route path="/tasks"element={<Placeholder title="Tasks" />} />
+          <Route path="/tasks" element={<Tasks />} />
           <Route path="/reports" element={<Placeholder title="Reports" />} />
           <Route path="/support/dashboard" element={<SupportDashboard />} />
           <Route path="/support/details" element={<SupportDetails />} />
           <Route path="/support/amc" element={<AmcSupportList />} />
           <Route path="/support/amc/new" element={<AmcSupport />} />
           <Route path="/support/amc/:id" element={<AmcSupport />} />
-          <Route path="/support/cmc" element={<Placeholder title="CMC" />} />
+          <Route path="/support/cmc" element={<CmcSupportList />} />
+          <Route path="/support/cmc/new" element={<CmcSupport />} />
+          <Route path="/support/cmc/:id" element={<CmcSupport />} />
           <Route path="/operations/purchase-order" element={<PurchaseOrder />} />
           <Route path="/operations/oem-orders" element={<OemOrders />} />
           <Route path="/settings" element={<Placeholder title="Settings" />} />
