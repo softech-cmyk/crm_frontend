@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import { Upload } from "lucide-react";
 import { API_BASE, apiFetch } from "../api.js";
@@ -10,8 +10,13 @@ const normalizeHeader = (value) => String(value).toLowerCase().replace(/[^a-z0-9
 // columns: [{ header, field, date? }] - the file's header row must use these
 // header names (case/punctuation-insensitive). Rows are posted to `endpoint`
 // as { rows: [{ [field]: value }] } and the endpoint replies with { count }.
-function ImportButton({ columns, endpoint, onImported }) {
+// Optional: onClick replaces the default open-file-picker behaviour, and
+// openSignal (a counter) opens the file picker whenever it increases.
+function ImportButton({ columns, endpoint, onImported, onClick, openSignal = 0 }) {
   const inputRef = useRef(null);
+  useEffect(() => {
+    if (openSignal > 0) inputRef.current?.click();
+  }, [openSignal]);
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
 
@@ -64,7 +69,7 @@ function ImportButton({ columns, endpoint, onImported }) {
       <button
         type="button"
         className="btn-secondary import-button-btn"
-        onClick={() => inputRef.current.click()}
+        onClick={() => (onClick ? onClick() : inputRef.current.click())}
         disabled={status === "importing"}
       >
         <Upload size={14} />

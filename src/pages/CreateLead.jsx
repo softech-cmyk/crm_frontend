@@ -2,6 +2,7 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, Pencil, Plus, X } from "lucide-react";
 import { API_BASE, apiFetch } from "../api.js";
+import { localDate } from "../utils/localDate.js";
 import { MATURITY_MONTHS, maturityLabel } from "../leadMaturity.js";
 import { LEAD_SOURCES } from "../leadSources.js";
 import SuggestInput from "../components/SuggestInput.jsx";
@@ -19,7 +20,20 @@ async function searchPeople(q) {
     organisation: c.company,
     address: c.address,
   }));
-  return [...leads, ...fromContacts].slice(0, 8);
+  // The same person can appear in several past leads and in Contacts: show each once.
+  const seen = new Set();
+  return [...leads, ...fromContacts]
+    .filter((p) => {
+      const key = `${(p.name || "").trim().toLowerCase()}|${(p.email || "").trim().toLowerCase()}|${(
+        p.organisation || ""
+      )
+        .trim()
+        .toLowerCase()}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .slice(0, 8);
 }
 
 function personLabel(p) {
@@ -49,7 +63,7 @@ function CreateLead() {
   const [designation, setDesignation] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [dateGenerated, setDateGenerated] = useState(() => new Date().toISOString().slice(0, 10));
+  const [dateGenerated, setDateGenerated] = useState(() => localDate());
   const [department, setDepartment] = useState("");
   const [organisation, setOrganisation] = useState("");
   const [address, setAddress] = useState("");
@@ -74,16 +88,18 @@ function CreateLead() {
   const [remarks, setRemarks] = useState("");
   const [saveStatus, setSaveStatus] = useState("idle");
 
+  // A pick means "this is that person", so replace every person field (blank when the
+  // record has none) instead of leaving a previous person's details behind.
   const fillFromPerson = (p) => {
-    if (p.designation) setDesignation(p.designation);
-    if (p.name) setName(p.name);
-    if (p.email) setEmail(p.email);
-    if (p.department) setDepartment(p.department);
-    if (p.organisation) setOrganisation(p.organisation);
-    if (p.address) setAddress(p.address);
-    if (p.pinCode) setPinCode(p.pinCode);
-    if (p.dob) setDob(p.dob);
-    if (p.anniversary) setAnniversary(p.anniversary);
+    setDesignation(p.designation || "");
+    setName(p.name || "");
+    setEmail(p.email || "");
+    setDepartment(p.department || "");
+    setOrganisation(p.organisation || "");
+    setAddress(p.address || "");
+    setPinCode(p.pinCode || "");
+    setDob(p.dob || "");
+    setAnniversary(p.anniversary || "");
   };
 
   const toggleLeadSource = (source) => {
@@ -106,7 +122,7 @@ function CreateLead() {
   };
 
   const addReport = () => {
-    setReports((prev) => [...prev, { date: new Date().toISOString().slice(0, 10), text: "" }]);
+    setReports((prev) => [...prev, { date: localDate(), text: "" }]);
   };
 
   const updateReport = (index, field, value) => {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { API_BASE, apiFetch } from "../api.js";
+import { localDate } from "../utils/localDate.js";
 import ImportButton from "../components/ImportButton.jsx";
 import "./TenderReference.css";
 
@@ -59,7 +60,7 @@ function TenderReference() {
   const [installationDate, setInstallationDate] = useState("");
   const [tentativeBidValue, setTentativeBidValue] = useState("");
   const [remarks, setRemarks] = useState("");
-  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
+  const [date, setDate] = useState(() => localDate());
   const [dueOn, setDueOn] = useState("");
   const [dueHour, setDueHour] = useState("");
   const [dueMinute, setDueMinute] = useState("");
@@ -101,7 +102,7 @@ function TenderReference() {
     setInstallationDate("");
     setTentativeBidValue("");
     setRemarks("");
-    setDate(new Date().toISOString().slice(0, 10));
+    setDate(localDate());
     setDueOn("");
     setDueHour("");
     setDueMinute("");
@@ -181,7 +182,7 @@ function TenderReference() {
       setInstallationDate("");
       setTentativeBidValue("");
       setRemarks("");
-      setDate(new Date().toISOString().slice(0, 10));
+      setDate(localDate());
       setDueOn("");
       setDueHour("");
       setDueMinute("");

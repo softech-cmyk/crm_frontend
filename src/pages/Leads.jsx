@@ -5,6 +5,7 @@ import { API_BASE, apiFetch } from "../api.js";
 import { LEAD_SOURCES as CHANNELS } from "../leadSources.js";
 import { MATURITY_MONTHS, maturityLabel } from "../leadMaturity.js";
 import ImportButton from "../components/ImportButton.jsx";
+import { DISTRIBUTOR_IMPORT_COLUMNS } from "./CreateDistributorLead.jsx";
 import "./Leads.css";
 
 const IMPORT_COLUMNS = [
@@ -65,6 +66,22 @@ function Leads() {
   const [statusFilter, setStatusFilter] = useState("All");
   const [deletingId, setDeletingId] = useState(null);
   const [updatingStatusId, setUpdatingStatusId] = useState(null);
+
+  const [picker, setPicker] = useState(null);
+  const [importSignal, setImportSignal] = useState(0);
+  const [importType, setImportType] = useState("government");
+
+  // The existing leads flow belongs to "Government customers leads".
+  const choosePicker = (type) => {
+    const action = picker;
+    setPicker(null);
+    setImportType(type);
+    if (action === "create") {
+      navigate(type === "local" ? "/sales/leads/distributor/create" : "/sales/leads/create");
+    } else {
+      setImportSignal((n) => n + 1);
+    }
+  };
 
   const loadLeads = () => {
     setLoadStatus("loading");
@@ -168,10 +185,33 @@ function Leads() {
         </div>
 
         <div className="leads-empty-actions">
-          <button type="button" className="btn-primary" onClick={() => navigate("/sales/leads/create")}>
+          <button
+            type="button"
+            className="btn-primary"
+            onClick={() => setPicker(picker === "create" ? null : "create")}
+          >
             Create
           </button>
-          <ImportButton columns={IMPORT_COLUMNS} endpoint="/api/leads/import" onImported={loadLeads} />
+          <ImportButton
+            columns={importType === "local" ? DISTRIBUTOR_IMPORT_COLUMNS : IMPORT_COLUMNS}
+            endpoint={importType === "local" ? "/api/distributor-leads/import" : "/api/leads/import"}
+            onImported={loadLeads}
+            onClick={() => setPicker(picker === "import" ? null : "import")}
+            openSignal={importSignal}
+          />
+          {picker && (
+            <div className="leads-type-picker">
+              <span className="leads-type-picker-title">
+                {picker === "create" ? "Create" : "Import"} which leads?
+              </span>
+              <button type="button" className="leads-type-option" onClick={() => choosePicker("local")}>
+                Local distributors leads
+              </button>
+              <button type="button" className="leads-type-option" onClick={() => choosePicker("government")}>
+                Government customers leads
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

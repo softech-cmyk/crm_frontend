@@ -7,21 +7,23 @@ import "./SuggestInput.css";
  * - getLabel(item) -> { title, subtitle }
  * - onPick(item) is called when a suggestion is clicked / chosen with Enter.
  * Other props are passed through to the <input>.
+ *
+ * Suggestions are only fetched while this input is focused, so a pick that fills
+ * *other* fields (or this one) never opens a stray dropdown.
  */
 function SuggestInput({ value, onChange, fetchSuggestions, getLabel, onPick, ...inputProps }) {
   const [items, setItems] = useState([]);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(-1);
-  const skipNext = useRef(false);
+  const inputRef = useRef(null);
+  const focused = useRef(false);
   const requestId = useRef(0);
 
   useEffect(() => {
-    if (skipNext.current) {
-      skipNext.current = false;
-      return;
-    }
+    if (!focused.current) return;
     const q = (value || "").trim();
     if (q.length < 2) {
+      requestId.current++;
       setItems([]);
       setOpen(false);
       return;
@@ -30,7 +32,8 @@ function SuggestInput({ value, onChange, fetchSuggestions, getLabel, onPick, ...
     const timer = setTimeout(() => {
       fetchSuggestions(q)
         .then((results) => {
-          if (id !== requestId.current) return;
+          // Ignore stale responses and ones that arrive after the field lost focus.
+          if (id !== requestId.current || !focused.current) return;
           setItems(results || []);
           setActive(-1);
           setOpen((results || []).length > 0);
@@ -41,12 +44,19 @@ function SuggestInput({ value, onChange, fetchSuggestions, getLabel, onPick, ...
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
-  const pick = (item) => {
-    skipNext.current = true;
+  const close = () => {
     requestId.current++;
     setOpen(false);
     setItems([]);
+    setActive(-1);
+  };
+
+  const pick = (item) => {
+    close();
     onPick(item);
+    // Leave the field so the value change caused by the pick doesn't search again.
+    focused.current = false;
+    inputRef.current?.blur();
   };
 
   const handleKeyDown = (e) => {
@@ -61,7 +71,7 @@ function SuggestInput({ value, onChange, fetchSuggestions, getLabel, onPick, ...
       e.preventDefault();
       pick(items[active]);
     } else if (e.key === "Escape") {
-      setOpen(false);
+      close();
     }
   };
 
@@ -69,10 +79,17 @@ function SuggestInput({ value, onChange, fetchSuggestions, getLabel, onPick, ...
     <div className="suggest-input">
       <input
         {...inputProps}
+        ref={inputRef}
         value={value}
         onChange={onChange}
         onKeyDown={handleKeyDown}
-        onBlur={() => setOpen(false)}
+        onFocus={() => {
+          focused.current = true;
+        }}
+        onBlur={() => {
+          focused.current = false;
+          close();
+        }}
         autoComplete="off"
       />
       {open && (

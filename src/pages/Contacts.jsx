@@ -232,6 +232,14 @@ function Contacts() {
     setWebsites(contact.websites && contact.websites.length ? contact.websites : []);
     setRelatedPeople(contact.relatedPeople || []);
     setCustomFields(contact.customFields || []);
+    // Don't leave filled-in values hidden behind "Show more".
+    const hasMoreData =
+      contact.department ||
+      contact.significantDates?.length ||
+      contact.websites?.length ||
+      contact.relatedPeople?.length ||
+      contact.customFields?.length;
+    if (hasMoreData) setShowMoreFields(true);
   };
 
   const updateBirthday = (field, value) => {

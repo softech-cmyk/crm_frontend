@@ -7,6 +7,7 @@ import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import Leads from "./pages/Leads.jsx";
 import CreateLead from "./pages/CreateLead.jsx";
+import CreateDistributorLead from "./pages/CreateDistributorLead.jsx";
 import LeadDetail from "./pages/LeadDetail.jsx";
 import Quotations from "./pages/Quotations.jsx";
 import ShareQuotation from "./pages/ShareQuotation.jsx";
@@ -48,6 +49,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/sales/leads" element={<Leads />} />
           <Route path="/sales/leads/create" element={<CreateLead />} />
+          <Route path="/sales/leads/distributor/create" element={<CreateDistributorLead />} />
           <Route path="/sales/leads/:id" element={<LeadDetail />} />
           <Route path="/sales/leads/:id/product-info" element={<ProductInformation />} />
           <Route path="/sales/quotations" element={<Quotations />} />

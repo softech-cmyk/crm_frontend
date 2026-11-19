@@ -6,11 +6,12 @@ import { COMPANY_INFO, DEFAULT_TERMS, DEFAULT_ENCLOSURES } from "../companyInfo.
 import ChipListInput from "../components/ChipListInput.jsx";
 import PhoneInput from "../components/PhoneInput.jsx";
 import { amountInWords } from "../utils/numberToWords.js";
+import { localDate } from "../utils/localDate.js";
 import "./CreateQuotation.css";
 
 function buildRefNo(lead) {
   const namePart = (lead?.name || "LEAD").replace(/\s+/g, "").toUpperCase().slice(0, 6);
-  const datePart = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+  const datePart = localDate().replace(/-/g, "");
   return `QR-${namePart}-${datePart}`;
 }
 
@@ -79,13 +80,18 @@ function CreateQuotation() {
   const [coverLetterBody, setCoverLetterBody] = useState("");
   const [enclosures, setEnclosures] = useState(DEFAULT_ENCLOSURES);
   const [subject, setSubject] = useState("");
+  // True once the user typed their own subject; until then it follows the items list.
+  const [subjectEdited, setSubjectEdited] = useState(false);
   const [refNo, setRefNo] = useState("");
-  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
+  const [date, setDate] = useState(() => localDate());
   const [yog, setYog] = useState(String(new Date().getFullYear()));
   const [demoDate, setDemoDate] = useState("");
   const [supplyOrder, setSupplyOrder] = useState("");
   const [followUpDate, setFollowUpDate] = useState("");
-  const [itemOptions, setItemOptions] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
+  const [sharedProducts, setSharedProducts] = useState([]);
+  // Products shared with the lead win; otherwise offer the whole inventory.
+  const itemOptions = sharedProducts.length > 0 ? sharedProducts : allProducts;
   const [items, setItems] = useState([emptyItem()]);
   const [itemsNote, setItemsNote] = useState("");
   const [optionalItems, setOptionalItems] = useState([]);
@@ -102,15 +108,21 @@ function CreateQuotation() {
   useEffect(() => {
     apiFetch(`${API_BASE}/api/products`)
       .then((res) => res.json())
-      .then((data) => setItemOptions(data.products || []))
+      .then((data) => setAllProducts(data.products || []))
       .catch(() => {});
   }, []);
 
   useEffect(() => {
-    if (!leadIdFromQuery) return;
+    // When editing a saved quotation, its own values must win over the lead's.
+    if (!leadIdFromQuery || editId) return;
+    let cancelled = false;
     apiFetch(`${API_BASE}/api/leads/${leadIdFromQuery}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Lead not found");
+        return res.json();
+      })
       .then((data) => {
+        if (cancelled || !data.lead) return;
         setCustomerName(data.lead?.name || "");
         setInstituteName(data.lead?.organisation || "");
         setAddress(data.lead?.address || "");
@@ -121,12 +133,13 @@ function CreateQuotation() {
           .map((sp) => sp.product)
           .filter(Boolean);
 
-        if (sharedProducts.length > 0) {
-          setItemOptions(sharedProducts);
-        }
+        setSharedProducts(sharedProducts);
       })
       .catch(() => {});
-  }, [leadIdFromQuery]);
+    return () => {
+      cancelled = true;
+    };
+  }, [leadIdFromQuery, editId]);
 
   useEffect(() => {
     if (!editId) return;
@@ -153,8 +166,9 @@ function CreateQuotation() {
         setCoverLetterBody(q.coverLetterBody || "");
         setEnclosures(q.enclosures?.length ? q.enclosures : DEFAULT_ENCLOSURES);
         setSubject(q.subject || "");
+        setSubjectEdited(Boolean(q.subject));
         setRefNo(q.refNo || "");
-        setDate(q.date || new Date().toISOString().slice(0, 10));
+        setDate(q.date || localDate());
         setYog(q.yog || String(new Date().getFullYear()));
         setDemoDate(q.demoDate || "");
         setSupplyOrder(q.supplyOrder || "");
@@ -175,7 +189,7 @@ function CreateQuotation() {
   }, [editId]);
 
   useEffect(() => {
-    if (subject) return;
+    if (subjectEdited) return;
     const first = items[0];
     if (!first?.name) return;
     const rest = items
@@ -186,7 +200,7 @@ function CreateQuotation() {
       rest.length ? ` with ${rest.join(" & ")}` : ""
     }`;
     setSubject(suggestion);
-  }, [items, subject]);
+  }, [items, subjectEdited]);
 
   const modelOptionsFor = (name) =>
     [...new Set(itemOptions.filter((p) => p.instrumentName === name && p.model).map((p) => p.model))];
@@ -630,7 +644,10 @@ function CreateQuotation() {
             <input
               id="subject"
               value={subject}
-              onChange={(e) => setSubject(e.target.value)}
+              onChange={(e) => {
+                setSubject(e.target.value);
+                setSubjectEdited(e.target.value !== "");
+              }}
               placeholder="Auto-suggested from the items below"
             />
           </div>
